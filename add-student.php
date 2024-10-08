@@ -46,7 +46,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Reg ID:</label>
+                                                        <label>Reg ID <span class="text-danger">*</span> :</label>
                                                         <input type="number" placeholder="Enter here..." onkeyup="this.value = this.value.toUpperCase();" class="form-control" required="" name="student_reg_id">
                                                         <div class="invalid-feedback">
                                                             Registration ID is Missing...!
@@ -56,7 +56,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>CNIC:</label>
+                                                        <label>CNIC<span class="text-danger">*</span> :</label>
                                                         <input type="text" data-inputmask="'mask':'99999-9999999-9'" placeholder="xxxxx-xxxxxxx-x" class="form-control" required="" name="student_cnic">
                                                         <div class="invalid-feedback">
                                                             What's your CNIC?
@@ -66,7 +66,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Mobile: </label>
+                                                        <label>Mobile<span class="text-danger">*</span> : </label>
                                                         <input type="text" data-inputmask="'mask':'9999-9999999'" placeholder="xxxx-xxxxxxx" class="form-control" required="" name="student_mobile">
                                                         <div class="invalid-feedback">
                                                             Enter your mobile number.
@@ -78,7 +78,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Name:</label>
+                                                        <label>Name<span class="text-danger">*</span> :</label>
                                                         <input type="text" placeholder="Enter here..." class="form-control" required="" name="student_name">
                                                         <div class="invalid-feedback">
                                                             What's your Name?
@@ -88,7 +88,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Father Name:</label>
+                                                        <label>Father Name<span class="text-danger">*</span> :</label>
                                                         <input type="text" placeholder="Enter here..." class="form-control" required="" name="student_father_name">
                                                         <div class="invalid-feedback">
                                                             What's your Father Name?
@@ -98,7 +98,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Date of Birth:</label>
+                                                        <label>Date of Birth<span class="text-danger">*</span> :</label>
                                                         <input type="date" class="form-control" required="" name="student_dob">
                                                         <div class="invalid-feedback">
                                                             What's your Date of Birth?
@@ -110,7 +110,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Gender:</label>
+                                                        <label>Gender<span class="text-danger">*</span> :</label>
                                                         <select class="form-control" required="" name="student_gender">
                                                             <option selected disabled value="">-- Choose --</option>
                                                             <option>Male</option>
@@ -124,7 +124,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
 
                                                 <div class="col-md-8">
                                                     <div class="form-group">
-                                                        <label>Address:</label>
+                                                        <label>Address<span class="text-danger">*</span> :</label>
                                                         <input type="text" placeholder="Enter here..." class="form-control" required="" name="student_address">
                                                         <div class="invalid-feedback">
                                                             What's your Address?
@@ -136,7 +136,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Grade:</label>
+                                                        <label>Grade<span class="text-danger">*</span> :</label>
                                                         <select class="form-control select2" required="" name="student_grade">
                                                             <option selected disabled value="">-- Choose --</option>
                                                             <option value='1'>1</option>
@@ -160,7 +160,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Section:</label>
+                                                        <label>Section<span class="text-danger">*</span> :</label>
                                                         <select class="form-control select2" required="" name="student_section">
                                                             <option selected disabled value="">-- Choose --</option>
                                                             <option>A</option>
@@ -176,7 +176,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Group:</label>
+                                                        <label>Group<span class="text-danger">*</span> :</label>
                                                         <select class="form-control" id="group-select" required="" name="student_group">
                                                             <option selected disabled value="">-- Choose --</option>
                                                             <?php foreach ($groups as $group): ?>
@@ -196,12 +196,14 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Group Category:</label>
-                                                        <input type="text" id="group-category" class="form-control" readonly>
+                                                        <select id="group-category" class="form-control" required>
+                                                            <option selected disabled>-- Choose --</option>
+                                                        </select>
                                                         <div class="invalid-feedback">
                                                             Group category will be shown here.
                                                         </div>
                                                     </div>
-                                                </div> <!-- /col -->
+                                                </div><!-- col -->
                                                 <div class="col-md-8">
                                                     <div class="form-group">
                                                         <label>Remarks: <small>(Optional)</small></label>
@@ -253,16 +255,25 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                 },
                 dataType: 'json',
                 success: function(response) {
-                    $('#group-category').val(response.category);
+                    // Clear the previous options
+                    $('#group-category').empty();
+
+                    // Add a default option
+                    $('#group-category').append('<option selected disabled>-- Choose --</option>');
+
+                    // Append new options from the response
+                    $.each(response.categories, function(index, category) {
+                        $('#group-category').append('<option value="' + category + '">' + category + '</option>');
+                    });
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error fetching group category:', error);
+                    console.error('Error fetching group categories:', error);
                 }
             });
         });
-
     });
 </script>
+
 
 <?php if (!empty($displaySuccessSweetAlert)): ?>
     <script>
