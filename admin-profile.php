@@ -1,14 +1,15 @@
 <?php include('auth.php'); ?>
 <?php
-    //Set a session variable to trigger the SweetAlert
-    if (!empty($_SESSION['success_sweetalert_displayed'])) {
-        $displaySuccessSweetAlert = true;
-        unset($_SESSION['success_sweetalert_displayed']);
-    } 
-    
+//Set a session variable to trigger the SweetAlert
+if (!empty($_SESSION['success_sweetalert_displayed'])) {
+  $displaySuccessSweetAlert = true;
+  unset($_SESSION['success_sweetalert_displayed']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Admin Profile</title>
   <?php include_once('include/html-sources.html'); ?>
@@ -20,9 +21,9 @@
     <div class="main-wrapper main-wrapper-1">
       <div class="navbar-bg"></div>
       <?php include_once('include/topbar.php'); ?>
-        <?php include_once('include/navbar.php'); ?>
+      <?php include_once('include/navbar.php'); ?>
 
-      
+
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
@@ -39,7 +40,7 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Name:</label>
-                            <input type="text" placeholder="Enter here..." class="form-control" required="" name="admin_name">
+                            <input type="text" placeholder="Enter here..." onkeyup="this.value = this.value.toUpperCase();" class="form-control" required="" name="admin_name">
                             <div class="invalid-feedback">
                               What's your name?
                             </div>
@@ -70,8 +71,9 @@
                           <div class="form-group">
                             <label>Role:</label>
                             <select class="form-control" required="" name="admin_role">
-                                <option selected disabled value="">-- Choose --</option>
-                                <option value='1'>Super admin</option>
+                              <option selected disabled value="">-- Choose --</option>
+                              <option value='1'>Super admin</option>
+                              <option value='0'>Admin</option>
                             </select>
                             <div class="invalid-feedback">
                               Choose profile role
@@ -94,7 +96,7 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Recovery Email:</label>
-                            <input type="email"  placeholder="Enter here..." class="form-control" required="" name="admin_recovery_email">
+                            <input type="email" placeholder="Enter here..." class="form-control" required="" name="admin_recovery_email">
                             <div class="invalid-feedback">
                               Enter recovery email?
                             </div>
@@ -120,20 +122,36 @@
   </div>
 
 </body>
+
 </html>
 
 
 <?php include_once('include/js-sources.html'); ?>
 
 <?php if (!empty($displaySuccessSweetAlert)): ?>
-<script>
-$(document).ready(function(){
-    swal({
+  <script>
+    $(document).ready(function() {
+      swal({
         title: "Congrats",
         text: "Operation successfully completed.",
         icon: "success",
         button: "OK"
+      });
     });
-});
-</script>
+  </script>
+<?php endif; ?>
+
+
+<?php if (!empty($_SESSION['error_sweetalert_displayed'])): ?>
+  <script>
+    $(document).ready(function() {
+      swal({
+        title: "Error",
+        text: "<?= $_SESSION['error_message']; ?>",
+        icon: "error",
+        button: "OK"
+      });
+    });
+  </script>
+  <?php unset($_SESSION['error_sweetalert_displayed']); ?>
 <?php endif; ?>

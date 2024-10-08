@@ -3,10 +3,10 @@ session_start();
 
 // Set a session variable to trigger the SweetAlert
 if (!isset($_SESSION['sweetalert_displayed'])) {
-    $_SESSION['sweetalert_displayed'] = true;
-    $displaySweetAlert = true;
+  $_SESSION['sweetalert_displayed'] = true;
+  $displaySweetAlert = true;
 } else {
-    $displaySweetAlert = false;
+  $displaySweetAlert = false;
 }
 ?>
 
@@ -581,24 +581,24 @@ if (!isset($_SESSION['sweetalert_displayed'])) {
 
 
 <!-- sweet-alert.html  21 Nov 2019 03:54:32 GMT -->
+
 </html>
 
 
-<script>
-    runSweetAlert=>(){
-        alert("Hi");
-    }
+<script
+  runSweetAlert=>
+  alert("Hi");
 </script>
 
 <?php if ($displaySweetAlert): ?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            swal({
-                title: "Welcome!",
-                text: "This alert appears on page reload.",
-                icon: "success",
-                button: "OK"
-            });
-        });
-    </script>
-    <?php endif; ?>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      swal({
+        title: "Welcome!",
+        text: "This alert appears on page reload.",
+        icon: "success",
+        button: "OK"
+      });
+    });
+  </script>
+<?php endif; ?>
