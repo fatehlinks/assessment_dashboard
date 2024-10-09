@@ -31,7 +31,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4><i data-feather="bar-chart"></i> Students List</h4>
+                                        <h4><i data-feather="eye"></i> Students List</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -70,7 +70,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                                         }
                                                     ?>
                                                         <tr>
-                                                            <td><?= $student_name; ?></td>
+                                                            <td> <a class="text-dark" href="student-profile.php?id=<?= $student_id; ?>"><?= $student_name; ?></a> </td>
                                                             <td><?= $student_cnic; ?></td>
                                                             <td><?= $student_mobile; ?></td>
                                                             <td><?= $student_group; ?></td>
