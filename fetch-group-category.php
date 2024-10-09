@@ -1,21 +1,26 @@
+<?php include('auth.php');  ?>
 <?php
-include('config.php');
+
 
 if (isset($_POST['group_id'])) {
     $group_id = $_POST['group_id'];
 
-    // Fetch all categories for the selected group_id
-    $query = "SELECT category_name FROM group_categories WHERE group_id = ?";
-    $stmt = $cn->prepare($query);
-    $stmt->bind_param("i", $group_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Fetch group categories based on the group ID
+    $query = "SELECT group_category FROM groups WHERE group_id = ?";
+    $stmt = mysqli_prepare($cn, $query);
+    mysqli_stmt_bind_param($stmt, 'i', $group_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
+    // Collect categories in an array
     $categories = [];
-    while ($row = $result->fetch_assoc()) {
-        $categories[] = $row['category_name'];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $categories[] = $row['group_category'];
     }
 
+    // Return the categories as a JSON response
     echo json_encode(['categories' => $categories]);
-    $stmt->close();
+} else {
+    // Handle error if group_id is not set
+    echo json_encode(['error' => 'No group_id provided.']);
 }
