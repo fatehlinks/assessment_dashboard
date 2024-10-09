@@ -1,3 +1,5 @@
+<?php include('auth.php'); ?>
+
 <?php
 // Include database connection
 include('config.php');
@@ -13,9 +15,9 @@ if (isset($_POST['add-student-btn'])) {
     $student_dob = mysqli_real_escape_string($cn, $_POST['student_dob']);
     $student_gender = mysqli_real_escape_string($cn, $_POST['student_gender']);
     $student_address = mysqli_real_escape_string($cn, $_POST['student_address']);
-    $student_grade = (int)$_POST['student_grade'];
+    $student_grade = $_POST['student_grade'];
     $student_section = mysqli_real_escape_string($cn, $_POST['student_section']);
-    $student_group = (int)$_POST['student_group'];
+    $student_group = $_POST['student_group'];
     $student_remarks = mysqli_real_escape_string($cn, $_POST['student_remarks']);
     $student_status = 1;
 

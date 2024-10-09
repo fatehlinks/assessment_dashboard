@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
         // If the subject does not exist, redirect back
         $_SESSION['error_sweetalert_displayed'] = true;
         $_SESSION['error_message'] = "Invalid subject ID.";
-        header("location:view-subjects.php");
+        header("location:add-subject.php");
         exit();
     }
 }
@@ -39,7 +39,7 @@ if (isset($_POST['update-subject'])) {
 
     if (mysqli_query($cn, $update_subject_qry)) {
         $_SESSION['success_sweetalert_displayed'] = true;
-        header("location:view-subjects.php");
+        header("location:add-subject.php");
         exit();
     } else {
         $_SESSION['error_sweetalert_displayed'] = true;
@@ -55,8 +55,9 @@ if (isset($_POST['update-subject'])) {
 
 <head>
     <title>Edit Subject</title>
+    <link rel="stylesheet" href="assets/bundles/select2/dist/css/select2.min.css" />
+
     <?php include_once('include/html-sources.html'); ?>
-    <link rel="stylesheet" href="assets/bundles/select2/dist/css/select2.min.css">
 </head>
 
 <body>

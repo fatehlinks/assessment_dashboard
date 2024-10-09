@@ -13,12 +13,12 @@ if (isset($_GET['id'])) {
     if (!$group_data) {
         // Handle case if the group ID is invalid
         $_SESSION['error_sweetalert_displayed'] = true;
-        header("location:view-groups.php");
+        header("location:add-group.php");
         exit();
     }
 } else {
     // If ID is not passed, redirect to the list view
-    header("location:view-groups.php");
+    header("location:add-group.php");
     exit();
 }
 
@@ -40,7 +40,7 @@ if (isset($_POST['update-group-btn'])) {
 
         if (mysqli_query($cn, $update_group_qry)) {
             $_SESSION['success_sweetalert_displayed'] = true;
-            header("location:view-groups.php");
+            header("location:add-group.php");
             exit();
         } else {
             $_SESSION['error_sweetalert_displayed'] = true;
@@ -55,8 +55,8 @@ if (isset($_POST['update-group-btn'])) {
 
 <head>
     <title>Edit Group</title>
+
     <?php include_once('include/html-sources.html'); ?>
-    <link rel="stylesheet" href="assets/bundles/select2/dist/css/select2.min.css">
 </head>
 
 <body>

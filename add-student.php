@@ -1,18 +1,16 @@
 <?php include('auth.php'); ?>
 <?php
-// Include database connection
-include('config.php');
+//Set a session variable to trigger the SweetAlert
+if (!empty($_SESSION['success_sweetalert_displayed'])) {
+    $displaySuccessSweetAlert = true;
+    unset($_SESSION['success_sweetalert_displayed']);
+}
 
 // Fetch groups from the database
 $groups_query = "SELECT * FROM groups";
 $groups_result = mysqli_query($cn, $groups_query);
 $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
 
-// Set a session variable to trigger the SweetAlert
-if (!empty($_SESSION['success_sweetalert_displayed'])) {
-    $displaySuccessSweetAlert = true;
-    unset($_SESSION['success_sweetalert_displayed']);
-}
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +18,8 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
 
 <head>
     <title>Add Student</title>
+    <link rel="stylesheet" href="assets/bundles/select2/dist/css/select2.min.css" />
+
     <?php include_once('include/html-sources.html'); ?>
 </head>
 
@@ -177,7 +177,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Group<span class="text-danger">*</span> :</label>
-                                                        <select class="form-control" id="group-select" required="" name="student_group">
+                                                        <select class="form-control select2" id="group-select" required="" name="student_group">
                                                             <option selected disabled value="">-- Choose --</option>
                                                             <?php foreach ($groups as $group): ?>
                                                                 <option value="<?= $group['group_id']; ?>"><?= $group['group_name']; ?></option>
@@ -196,7 +196,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Group Category:</label>
-                                                        <select id="group-category" class="form-control" required>
+                                                        <select id="group-category" class="form-control select2" required>
                                                             <option selected disabled>-- Choose --</option>
                                                         </select>
                                                         <div class="invalid-feedback">
@@ -286,6 +286,8 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
             });
         });
     </script>
+    <?php unset($_SESSION['success_sweetalert_displayed']); ?>
+
 <?php endif; ?>
 
 <?php if (!empty($_SESSION['error_sweetalert_displayed'])): ?>

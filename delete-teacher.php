@@ -10,14 +10,14 @@ if (isset($_GET['id'])) {
     // Run the query
     if (mysqli_query($cn, $delete_teacher_qry)) {
         $_SESSION['success_sweetalert_displayed'] = true;
-        header("location:view-teachers.php");
+        header("location:add-teacher.php");
         exit();
     } else {
         // Handle error
         echo "Error: " . mysqli_error($cn);
     }
 } else {
-    header("location:view-teachers.php");
+    header("location:add-teacher.php");
     exit();
 }
 ?>

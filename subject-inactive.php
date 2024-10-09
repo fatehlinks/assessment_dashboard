@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
 
     if (mysqli_query($cn, $status_qry)) {
         $_SESSION['success_sweetalert_displayed'] = true;
-        header("location:view-subjects.php");
+        header("location:add-subject.php");
         exit();
     } else {
         // Handle error
@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
     }
 } else {
     // If no ID or status is passed, redirect to the view page
-    header("location:view-subjects.php");
+    header("location:add-subject.php");
     exit();
 }
 ?>

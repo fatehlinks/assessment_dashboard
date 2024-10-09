@@ -12,9 +12,9 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
 
 <head>
     <title>Add Subject</title>
+    <link rel="stylesheet" href="assets/bundles/select2/dist/css/select2.min.css" />
 
     <?php include_once('include/html-sources.html'); ?>
-    <link rel="stylesheet" href="assets/bundles/select2/dist/css/select2.min.css">
 
 
 
@@ -98,9 +98,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                    <div class="card-header">
-                                        <h4><i data-feather="eye" class="me-2"></i> All Subjects</h4>
-                                    </div>
+
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-hover" id="tableExport" style="width:100%;">

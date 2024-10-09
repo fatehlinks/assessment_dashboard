@@ -13,12 +13,12 @@ if (isset($_GET['id'])) {
     if (!$teacher_data) {
         // Handle case if the teacher ID is invalid
         $_SESSION['error_sweetalert_displayed'] = true;
-        header("location:view-teachers.php");
+        header("location:add-teacher.php");
         exit();
     }
 } else {
     // If ID is not passed, redirect to the list view
-    header("location:view-teachers.php");
+    header("location:add-teacher.php");
     exit();
 }
 
@@ -39,7 +39,7 @@ if (isset($_POST['update-teacher-btn'])) {
 
     if (mysqli_query($cn, $update_teacher_qry)) {
         $_SESSION['success_sweetalert_displayed'] = true;
-        header("location:view-teachers.php");
+        header("location:add-teacher.php");
         exit();
     } else {
         echo "Error: " . mysqli_error($cn);
@@ -52,6 +52,8 @@ if (isset($_POST['update-teacher-btn'])) {
 
 <head>
     <title>Edit Teacher</title>
+    <link rel="stylesheet" href="assets/bundles/select2/dist/css/select2.min.css">
+
     <?php include_once('include/html-sources.html'); ?>
 </head>
 
@@ -100,7 +102,7 @@ if (isset($_POST['update-teacher-btn'])) {
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Subject</label>
-                                                        <select class="form-control" name="teacher_subject" required>
+                                                        <select class="form-control select2" name="teacher_subject" required>
                                                             <option selected disabled value="">-- Choose Subject --</option>
                                                             <?php
                                                             // Fetch subjects to populate the dropdown
@@ -121,7 +123,7 @@ if (isset($_POST['update-teacher-btn'])) {
 
                                             <div class="form-group text-right">
                                                 <button type="submit" name="update-teacher-btn" class="btn btn-primary">Update Teacher</button>
-                                                <a href="view-teacher.php" class="btn btn-secondary">Cancel</a>
+                                                <a href="add-teacher.php" class="btn btn-secondary">Cancel</a>
                                             </div>
                                         </form>
                                     </div>
