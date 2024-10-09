@@ -4,8 +4,8 @@ include('auth.php');
 if (isset($_POST['group_name'])) {
     $group_name = $_POST['group_name'];
 
-    // Fetch group categories based on the group name (e.g., "Matric" or "Intermediate")
-    $query = "SELECT group_category FROM groups WHERE group_name = ?";
+    // Fetch group categories based on the group name
+    $query = "SELECT group_id, group_category FROM groups WHERE group_name = ?";
     $stmt = mysqli_prepare($cn, $query);
     mysqli_stmt_bind_param($stmt, 's', $group_name); // Use string for group name
     mysqli_stmt_execute($stmt);
@@ -14,7 +14,10 @@ if (isset($_POST['group_name'])) {
     // Collect categories in an array
     $categories = [];
     while ($row = mysqli_fetch_assoc($result)) {
-        $categories[] = $row['group_category'];
+        $categories[] = [
+            'group_category_id' => $row['group_id'],
+            'group_category' => $row['group_category']
+        ];
     }
 
     // Return the categories as a JSON response

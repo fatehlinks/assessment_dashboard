@@ -48,6 +48,7 @@ if (isset($_POST['edit-student-btn'])) {
     $student_grade = $_POST['student_grade'];
     $student_section = $_POST['student_section'];
     $student_group = $_POST['student_group'];
+    $student_group_category = $_POST['student_group_category'];
     $student_remarks = isset($_POST['student_remarks']) ? $_POST['student_remarks'] : null;
 
     // SQL query to update the student's data
@@ -63,6 +64,7 @@ if (isset($_POST['edit-student-btn'])) {
                   student_grade = ?, 
                   student_section = ?, 
                   student_group = ?, 
+                  student_group_category = ?, 
                   student_remarks = ?
               WHERE student_id = ?";
 
@@ -72,7 +74,7 @@ if (isset($_POST['edit-student-btn'])) {
     // Bind the parameters
     mysqli_stmt_bind_param(
         $stmt,
-        'sssssssssssi',
+        'ssssssssssssi',
         $student_cnic,
         $student_mobile,
         $student_name,
@@ -83,6 +85,7 @@ if (isset($_POST['edit-student-btn'])) {
         $student_grade,
         $student_section,
         $student_group,
+        $student_group_category,
         $student_remarks,
         $student_id
     );
@@ -236,7 +239,7 @@ if (isset($_POST['edit-student-btn'])) {
                                                             <?php endfor; ?>
                                                         </select>
                                                         <div class="invalid-feedback">
-                                                            Choose profile role
+                                                            Choose Grade
                                                         </div>
                                                     </div>
                                                 </div> <!-- /col -->
@@ -246,10 +249,14 @@ if (isset($_POST['edit-student-btn'])) {
                                                         <label>Section<span class="text-danger">*</span> :</label>
                                                         <select class="form-control select2" required="" name="student_section">
                                                             <option selected disabled value="">-- Choose --</option>
-                                                            <option <?= $student['student_section'] == 'A' ? 'selected' : ''; ?>>A</option>
-                                                            <option <?= $student['student_section'] == 'B' ? 'selected' : ''; ?>>B</option>
-                                                            <option <?= $student['student_section'] == 'C' ? 'selected' : ''; ?>>C</option>
-                                                            <option <?= $student['student_section'] == 'D' ? 'selected' : ''; ?>>D</option>
+                                                            <?php
+                                                            // Generate options from A to Z
+                                                            foreach (range('A', 'Z') as $letter) {
+                                                                // Check if the current letter is the student's section and select it if it is
+                                                                $selected = ($student['student_section'] == $letter) ? 'selected' : '';
+                                                                echo "<option $selected>$letter</option>";
+                                                            }
+                                                            ?>
                                                         </select>
                                                         <div class="invalid-feedback">
                                                             Choose profile role
@@ -261,30 +268,53 @@ if (isset($_POST['edit-student-btn'])) {
                                                     <div class="form-group">
                                                         <label>Group<span class="text-danger">*</span> :</label>
                                                         <select class="form-control select2" id="group-select" required="" name="student_group">
-                                                            <option selected disabled value="">-- Choose --</option>
-                                                            <?php foreach ($groups as $group): ?>
-                                                                <option value="<?= $group['group_id']; ?>" <?= $student['student_group'] == $group['group_id'] ? 'selected' : ''; ?>><?= $group['group_name']; ?></option>
-                                                            <?php endforeach; ?>
+                                                            <option disabled value="">-- Choose --</option>
+                                                            <?php
+                                                            // Initialize an array to track unique group names
+                                                            $uniqueGroupNames = [];
+
+                                                            // Iterate through the groups
+                                                            foreach ($groups as $group):
+                                                                // Check if the group name is already in the array
+                                                                if (!in_array($group['group_name'], $uniqueGroupNames)):
+
+                                                                    $uniqueGroupNames[] = $group['group_name'];
+                                                                    if ($group['group_id'] == $student['student_mobile']) {
+                                                                        $selected = "selectd";
+                                                                    } else {
+                                                                        $selected = "";
+                                                                    }
+                                                            ?>
+                                                                    <option <?= $selected ?> value="<?= $group['group_id']; ?>"><?= $group['group_name']; ?></option>
+                                                            <?php
+                                                                endif;
+                                                            endforeach;
+                                                            ?>
                                                         </select>
                                                         <div class="invalid-feedback">
                                                             Select a group.
                                                         </div>
                                                     </div>
                                                 </div> <!-- /col -->
+
+
                                             </div> <!-- /row -->
 
                                             <div class="row">
+
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Group Category:</label>
-                                                        <select id="group-category" class="form-control select2" required>
+                                                        <select id="group-category" class="form-control select2" required name="student_group_category">
                                                             <option selected disabled>-- Choose --</option>
+                                                            <!-- Categories will be populated via AJAX -->
                                                         </select>
                                                         <div class="invalid-feedback">
                                                             Group category will be shown here.
                                                         </div>
                                                     </div>
                                                 </div><!-- col -->
+
                                                 <div class="col-md-8">
                                                     <div class="form-group">
                                                         <label>Remarks: <small>(Optional)</small></label>
@@ -294,6 +324,7 @@ if (isset($_POST['edit-student-btn'])) {
                                                         </div>
                                                     </div>
                                                 </div> <!-- /col -->
+
                                             </div> <!-- /row -->
 
                                         </div>
@@ -324,16 +355,16 @@ if (isset($_POST['edit-student-btn'])) {
     $(":input").inputmask();
 </script>
 
-<!-- Fetch group category when group is selected -->
+<!-- Fetch group category when group is selected and on page load -->
 <script>
     $(document).ready(function() {
-        $('#group-select').change(function() {
-            var groupId = $(this).val();
+        // Function to fetch and populate group categories
+        function fetchGroupCategories(groupName, selectedCategory) {
             $.ajax({
                 url: 'fetch-group-category.php',
                 method: 'POST',
                 data: {
-                    group_id: groupId
+                    group_name: groupName // Send group name instead of ID
                 },
                 dataType: 'json',
                 success: function(response) {
@@ -345,13 +376,27 @@ if (isset($_POST['edit-student-btn'])) {
 
                     // Append new options from the response
                     $.each(response.categories, function(index, category) {
-                        $('#group-category').append('<option value="' + category + '">' + category + '</option>');
+                        var selected = category.group_category_id == selectedCategory ? 'selected' : '';
+                        $('#group-category').append('<option value="' + category.group_category_id + '" ' + selected + '>' + category.group_category + '</option>');
                     });
                 },
                 error: function(xhr, status, error) {
                     console.error('Error fetching group categories:', error);
                 }
             });
+        }
+
+        // On page load, fetch categories for the selected group
+        var initialGroupName = $('#group-select option:selected').text(); // Get the initially selected group name
+        var selectedCategory = "<?= $student['student_group_category']; ?>"; // Get the student's current group category
+        if (initialGroupName) {
+            fetchGroupCategories(initialGroupName, selectedCategory);
+        }
+
+        // Fetch categories when the group is changed
+        $('#group-select').change(function() {
+            var groupName = $('#group-select option:selected').text(); // Get the selected group name
+            fetchGroupCategories(groupName, null); // Fetch without pre-selecting a category
         });
     });
 </script>
@@ -368,7 +413,6 @@ if (isset($_POST['edit-student-btn'])) {
         });
     </script>
     <?php unset($_SESSION['success_sweetalert_displayed']); ?>
-
 <?php endif; ?>
 
 <?php if (!empty($_SESSION['error_sweetalert_displayed'])): ?>

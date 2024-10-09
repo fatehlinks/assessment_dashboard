@@ -47,7 +47,7 @@ $subjectsResult = mysqli_query($cn, $query);
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Name:</label>
+                                                        <label>Name<span class="text-danger">*</span> :</label>
                                                         <input type="text" placeholder="Enter here..." onkeyup="this.value = this.value.toUpperCase();" class="form-control" required="" name="teacher_name">
                                                         <div class="invalid-feedback">
                                                             What's the teacher's name?
@@ -56,7 +56,7 @@ $subjectsResult = mysqli_query($cn, $query);
                                                 </div> <!-- /col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>CNIC</label>
+                                                        <label>CNIC<span class="text-danger">*</span> :</label>
                                                         <input type="text" data-inputmask="'mask':'99999-9999999-9'" placeholder="xxxxx-xxxxxxx-x" class="form-control" required="" name="teacher_cnic">
                                                         <div class="invalid-feedback">
                                                             What's the teacher's CNIC?
@@ -69,7 +69,7 @@ $subjectsResult = mysqli_query($cn, $query);
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Joining Date:</label>
+                                                        <label>Joining Date<span class="text-danger">*</span> :</label>
                                                         <input type="date" class="form-control" required="" name="teacher_joining_date">
                                                         <div class="invalid-feedback">
                                                             What's the teacher's joining date?
@@ -90,7 +90,7 @@ $subjectsResult = mysqli_query($cn, $query);
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Mobile: </label>
+                                                        <label>Mobile<span class="text-danger">*</span> : </label>
                                                         <input type="text" data-inputmask="'mask':'9999-9999999'" placeholder="xxxx-xxxxxxx" class="form-control" required="" name="teacher_mobile">
                                                         <div class="invalid-feedback">
                                                             Enter the teacher's mobile number.
@@ -99,7 +99,7 @@ $subjectsResult = mysqli_query($cn, $query);
                                                 </div> <!-- /col -->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Subject:</label>
+                                                        <label>Subject<span class="text-danger">*</span> :</label>
                                                         <select class="form-control select2" required="" name="teacher_subject">
                                                             <option selected disabled value="">-- Choose --</option>
                                                             <?php

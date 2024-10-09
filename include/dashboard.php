@@ -40,7 +40,7 @@
               <div class="row ">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                   <div class="card-content">
-                    <h5 class="font-15">Active Courses</h5>
+                    <h5 class="font-15">Students</h5>
                     <h2 class="mb-3 font-18"><?php // $total_active_courses; 
                                               ?></h2>
                     <p class="mb-0"><span class="col-green">- - - - -</span></p>
@@ -63,7 +63,7 @@
               <div class="row ">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                   <div class="card-content">
-                    <h5 class="font-15"> New Enrolled</h5>
+                    <h5 class="font-15"> Teachers</h5>
                     <h2 class="mb-3 font-18"><?php  //$total_new_enrolled; 
                                               ?></h2>
                     <p class="mb-0"><span class="col-orange">- - - - -</span></p>
@@ -86,7 +86,7 @@
               <div class="row ">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                   <div class="card-content">
-                    <h5 class="font-15">Dropped</h5>
+                    <h5 class="font-15">Pending </h5>
                     <h2 class="mb-3 font-18"><?php // $total_dropped_enrolled; 
                                               ?></h2>
                     <p class="mb-0"><span class="col-green">- - - - -</span></p>
@@ -109,7 +109,7 @@
               <div class="row ">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                   <div class="card-content">
-                    <h5 class="font-15">Passout</h5>
+                    <h5 class="font-15">Completed</h5>
                     <h2 class="mb-3 font-18"><?php // $total_passout_enrolled; 
                                               ?></h2>
                     <p class="mb-0"><span class="col-green">- - - - -</span></p>

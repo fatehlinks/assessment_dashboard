@@ -151,6 +151,10 @@ $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
                                                             <option value='10'>10</option>
                                                             <option value='11'>11</option>
                                                             <option value='12'>12</option>
+                                                            <option value='13'>13</option>
+                                                            <option value='14'>14</option>
+                                                            <option value='15'>15</option>
+                                                            <option value='16'>16</option>
                                                         </select>
                                                         <div class="invalid-feedback">
                                                             Choose profile role
@@ -167,6 +171,28 @@ $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
                                                             <option>B</option>
                                                             <option>C</option>
                                                             <option>D</option>
+                                                            <option>E</option>
+                                                            <option>F</option>
+                                                            <option>G</option>
+                                                            <option>H</option>
+                                                            <option>I</option>
+                                                            <option>J</option>
+                                                            <option>K</option>
+                                                            <option>L</option>
+                                                            <option>M</option>
+                                                            <option>N</option>
+                                                            <option>O</option>
+                                                            <option>P</option>
+                                                            <option>Q</option>
+                                                            <option>R</option>
+                                                            <option>S</option>
+                                                            <option>T</option>
+                                                            <option>U</option>
+                                                            <option>V</option>
+                                                            <option>W</option>
+                                                            <option>X</option>
+                                                            <option>Y</option>
+                                                            <option>Z</option>
                                                         </select>
                                                         <div class="invalid-feedback">
                                                             Choose profile role
@@ -210,14 +236,15 @@ $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Group Category:</label>
-                                                        <select id="group-category" class="form-control select2" required>
+                                                        <select id="group-category" class="form-control select2" name="student_group_category" required>
                                                             <option selected disabled>-- Choose --</option>
                                                         </select>
                                                         <div class="invalid-feedback">
                                                             Group category will be shown here.
                                                         </div>
                                                     </div>
-                                                </div><!-- col -->
+                                                </div>
+
                                                 <div class="col-md-8">
                                                     <div class="form-group">
                                                         <label>Remarks: <small>(Optional)</small></label>
@@ -277,7 +304,7 @@ $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
 
                     // Append new options from the response
                     $.each(response.categories, function(index, category) {
-                        $('#group-category').append('<option value="' + category + '">' + category + '</option>');
+                        $('#group-category').append('<option value="' + category.group_category_id + '">' + category.group_category + '</option>');
                     });
                 },
                 error: function(xhr, status, error) {

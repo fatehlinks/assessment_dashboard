@@ -20,7 +20,9 @@
       </li>
 
       <li class="menu-header">Settings</li>
-
+      <li class="dropdown">
+        <a href="add-group.php" class="nav-link"><i data-feather="layers"></i><span>Group</span></a>
+      </li>
 
       <li class="dropdown">
         <a href="add-subject.php" class="nav-link"><i data-feather="book"></i><span>Subject</span></a>
@@ -31,9 +33,7 @@
       </li>
 
 
-      <li class="dropdown">
-        <a href="add-group.php" class="nav-link"><i data-feather="layers"></i><span>Group</span></a>
-      </li>
+
 
       <li class="dropdown">
         <a href="admin-profile.php" class="nav-link"><i data-feather="user-plus"></i><span>Admin</span></a>

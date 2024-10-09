@@ -15,9 +15,10 @@ if (isset($_POST['add-student-btn'])) {
     $student_dob = mysqli_real_escape_string($cn, $_POST['student_dob']);
     $student_gender = mysqli_real_escape_string($cn, $_POST['student_gender']);
     $student_address = mysqli_real_escape_string($cn, $_POST['student_address']);
-    $student_grade = $_POST['student_grade'];
+    $student_grade = $_POST['student_grade']; // No need to sanitize if it is numeric
     $student_section = mysqli_real_escape_string($cn, $_POST['student_section']);
-    $student_group = $_POST['student_group'];
+    $student_group = $_POST['student_group']; // No need to sanitize if it is numeric
+    $student_group_category = $_POST['student_group_category']; // No need to sanitize if it is numeric
     $student_remarks = mysqli_real_escape_string($cn, $_POST['student_remarks']);
     $student_status = 1;
 
@@ -33,9 +34,9 @@ if (isset($_POST['add-student-btn'])) {
         header("Location: add-student.php"); // Redirect on error
         exit(); // Exit to avoid further execution
     } else {
-        // Prepare the SQL INSERT statement
-        $insert_query = "INSERT INTO students (student_reg_id, student_cnic, student_mobile, student_name, student_father_name, student_dob, student_gender, student_address, student_grade, student_section, student_group, student_remarks , student_status)
-        VALUES ('$student_reg_id', '$student_cnic', '$student_mobile', '$student_name', '$student_father_name', '$student_dob', '$student_gender', '$student_address', $student_grade, '$student_section', $student_group, '$student_remarks' , '$student_status')";
+        // Prepare the SQL INSERT statement with corrected quotes
+        $insert_query = "INSERT INTO students (student_reg_id, student_cnic, student_mobile, student_name, student_father_name, student_dob, student_gender, student_address, student_grade, student_section, student_group, student_group_category, student_remarks, student_status)
+        VALUES ('$student_reg_id', '$student_cnic', '$student_mobile', '$student_name', '$student_father_name', '$student_dob', '$student_gender', '$student_address', '$student_grade', '$student_section', '$student_group', '$student_group_category', '$student_remarks', '$student_status')";
 
         // Execute the query
         if (mysqli_query($cn, $insert_query)) {
@@ -50,3 +51,4 @@ if (isset($_POST['add-student-btn'])) {
         }
     }
 }
+?>
