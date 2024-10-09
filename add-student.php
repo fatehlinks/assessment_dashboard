@@ -47,7 +47,7 @@ $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Reg ID <span class="text-danger">*</span> :</label>
-                                                        <input type="number" placeholder="Enter here..." onkeyup="this.value = this.value.toUpperCase();" class="form-control" required="" name="student_reg_id">
+                                                        <input type="number" min='1' placeholder="Enter here..." class="form-control" required="" name="student_reg_id">
                                                         <div class="invalid-feedback">
                                                             Registration ID is Missing...!
                                                         </div>
@@ -79,7 +79,7 @@ $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Name<span class="text-danger">*</span> :</label>
-                                                        <input type="text" placeholder="Enter here..." class="form-control" required="" name="student_name">
+                                                        <input type="text" placeholder="Enter here..." onkeyup="this.value = this.value.toUpperCase();" class="form-control" required="" name="student_name">
                                                         <div class="invalid-feedback">
                                                             What's your Name?
                                                         </div>
@@ -89,7 +89,7 @@ $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Father Name<span class="text-danger">*</span> :</label>
-                                                        <input type="text" placeholder="Enter here..." class="form-control" required="" name="student_father_name">
+                                                        <input type="text" placeholder="Enter here..." onkeyup="this.value = this.value.toUpperCase();" class="form-control" required="" name="student_father_name">
                                                         <div class="invalid-feedback">
                                                             What's your Father Name?
                                                         </div>
