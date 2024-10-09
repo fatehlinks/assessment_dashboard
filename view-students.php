@@ -31,7 +31,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4><i data-feather="bar-chart"></i> Students List</h4>
+                                        <h4><i data-feather="eye"></i> Students List</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
@@ -51,7 +51,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                                     // Fetch student data from the database
                                                     $select_student_data = "SELECT students.*, groups.group_name 
                                                                             FROM students 
-                                                                            JOIN groups ON students.student_group = groups.group_id";
+                                                                            JOIN groups ON students.student_group = groups.group_id WHERE student_status != -1";
                                                     $select_student_data_run = mysqli_query($cn, $select_student_data);
 
                                                     while ($row = mysqli_fetch_assoc($select_student_data_run)) {
@@ -70,7 +70,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                                         }
                                                     ?>
                                                         <tr>
-                                                            <td><?= $student_name; ?></td>
+                                                            <td> <a class="text-dark" href="student-profile.php?id=<?= $student_id; ?>"><?= $student_name; ?></a> </td>
                                                             <td><?= $student_cnic; ?></td>
                                                             <td><?= $student_mobile; ?></td>
                                                             <td><?= $student_group; ?></td>

@@ -65,6 +65,28 @@ $subjectsResult = mysqli_query($cn, $query);
                                                 </div> <!-- /col -->
                                             </div> <!-- /row -->
 
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Joining Date:</label>
+                                                        <input type="date" class="form-control" required="" name="teacher_joining_date">
+                                                        <div class="invalid-feedback">
+                                                            What's the teacher's joining date?
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- /col -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Date of Birth</label>
+                                                        <input type="date" class="form-control" required="" name="teacher_dob">
+                                                        <div class="invalid-feedback">
+                                                            What's the teacher's date of birth?
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- /col -->
+                                            </div> <!-- /row -->
+
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
@@ -123,6 +145,8 @@ $subjectsResult = mysqli_query($cn, $query);
                                                         <th>Name</th>
                                                         <th>CNIC</th>
                                                         <th>Mobile</th>
+                                                        <th>Joining Date</th>
+                                                        <th>Date of Birth</th>
                                                         <th>Subject</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
@@ -140,6 +164,8 @@ $subjectsResult = mysqli_query($cn, $query);
                                                         $teacher_id = $row['teacher_id'];
                                                         $teacher_name = $row['teacher_name'];
                                                         $teacher_cnic = $row['teacher_cnic'];
+                                                        $teacher_joining_date = $row['teacher_joining_date'];
+                                                        $teacher_dob = $row['teacher_dob'];
                                                         $teacher_mobile = $row['teacher_mobile'];
                                                         $subject_name = $row['subject_name'];
                                                         $teacher_status = $row['teacher_status'];
@@ -155,6 +181,9 @@ $subjectsResult = mysqli_query($cn, $query);
                                                             <td><?= $teacher_name; ?></td>
                                                             <td><?= $teacher_cnic; ?></td>
                                                             <td><?= $teacher_mobile; ?></td>
+
+                                                            <td><?= $teacher_joining_date ?></td>
+                                                            <td><?= $teacher_dob ?></td>
                                                             <td><?= $subject_name; ?></td>
                                                             <td><?= $teacher_status_display; ?></td>
                                                             <td>

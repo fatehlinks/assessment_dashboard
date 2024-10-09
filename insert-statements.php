@@ -17,7 +17,7 @@ if (isset($_POST['add-admin-profile-btn'])) {
     if (mysqli_num_rows($check_email_qry_run) > 0) {
         // Email already exists
         $_SESSION['error_sweetalert_displayed'] = true;
-        $_SESSION['error_message'] = "The email address is already in use. Please choose a different one.";
+        $_SESSION['error_message'] = "The email address is already in use.";
         header("location:admin-profile.php");
         exit();
     } else {

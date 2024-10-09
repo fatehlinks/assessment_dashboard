@@ -112,7 +112,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $select_subject_data = "SELECT * FROM subjects";
+                                                    $select_subject_data = "SELECT * FROM subjects WHERE subject_status != -1";
                                                     $select_subject_data_run = mysqli_query($cn, $select_subject_data);
                                                     while ($row = mysqli_fetch_assoc($select_subject_data_run)) {
                                                         $subject_id = $row['subject_id'];
