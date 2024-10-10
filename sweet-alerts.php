@@ -138,7 +138,7 @@ if (!isset($_SESSION['sweetalert_displayed'])) {
                       Sugiharto</b> are now friends <span class="time">10 Hours
                       Ago</span>
                   </span>
-                </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-success text-white"> <i
+                </a> <a href="#" class="dropdown-item"> <span class="dropdown-item-icon bg-primary text-white"> <i
                       class="fas
 												fa-check"></i>
                   </span> <span class="dropdown-item-desc"> <b>Kusnaedi</b> has
@@ -408,7 +408,7 @@ if (!isset($_SESSION['sweetalert_displayed'])) {
               <div class="col-12 col-sm-6 col-lg-3">
                 <div class="card">
                   <div class="card-body text-center">
-                    <div class="mb-2">Success Message</div>
+                    <div class="mb-2">primary Message</div>
                     <button class="btn btn-primary" id="swal-2">Launch</button>
                   </div>
                 </div>
@@ -596,7 +596,7 @@ if (!isset($_SESSION['sweetalert_displayed'])) {
       swal({
         title: "Welcome!",
         text: "This alert appears on page reload.",
-        icon: "success",
+        icon: "primary",
         button: "OK"
       });
     });

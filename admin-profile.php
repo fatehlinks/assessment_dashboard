@@ -1,9 +1,9 @@
 <?php include('auth.php'); ?>
 <?php
 //Set a session variable to trigger the SweetAlert
-if (!empty($_SESSION['success_sweetalert_displayed'])) {
-  $displaySuccessSweetAlert = true;
-  unset($_SESSION['success_sweetalert_displayed']);
+if (!empty($_SESSION['primary_sweetalert_displayed'])) {
+  $displayprimarySweetAlert = true;
+  unset($_SESSION['primary_sweetalert_displayed']);
 }
 
 ?>
@@ -154,7 +154,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                             $admin_recovery_email = $row['admin_recovery_email'];
                             $admin_status = $row['admin_status'];
                             if ($admin_status == 1) {
-                              $admin_status = "<span class='badge badge-success'>Active</span>";
+                              $admin_status = "<span class='badge badge-primary'>Active</span>";
                             } else {
                               $admin_status = "<span class='badge badge-warning'>Inactive</span>";
                             }
@@ -206,13 +206,13 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
 
 <?php include_once('include/js-sources.html'); ?>
 
-<?php if (!empty($displaySuccessSweetAlert)): ?>
+<?php if (!empty($displayprimarySweetAlert)): ?>
   <script>
     $(document).ready(function() {
       swal({
         title: "Congrats",
-        text: "Operation successfully completed.",
-        icon: "success",
+        text: "Operation primaryfully completed.",
+        icon: "primary",
         button: "OK"
       });
     });

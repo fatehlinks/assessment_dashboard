@@ -1,9 +1,9 @@
 <?php include('auth.php'); ?>
 <?php
 //Set a session variable to trigger the SweetAlert
-if (!empty($_SESSION['success_sweetalert_displayed'])) {
-    $displaySuccessSweetAlert = true;
-    unset($_SESSION['success_sweetalert_displayed']);
+if (!empty($_SESSION['primary_sweetalert_displayed'])) {
+    $displayprimarySweetAlert = true;
+    unset($_SESSION['primary_sweetalert_displayed']);
 }
 
 // Fetch subjects from the database
@@ -229,13 +229,13 @@ $subjectsResult = mysqli_query($cn, $query);
 </script>
 
 <!-- sweet alert -->
-<?php if (!empty($displaySuccessSweetAlert)): ?>
+<?php if (!empty($displayprimarySweetAlert)): ?>
     <script>
         $(document).ready(function() {
             swal({
                 title: "Congrats",
-                text: "Operation successfully completed.",
-                icon: "success",
+                text: "Operation primaryfully completed.",
+                icon: "primary",
                 button: "OK"
             });
         });

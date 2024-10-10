@@ -17,7 +17,7 @@ if (isset($_POST['add-teacher-btn'])) {
     $add_teacher_qry_run = mysqli_query($cn, $add_teacher_qry);
 
     if ($add_teacher_qry_run) {
-        $_SESSION['success_sweetalert_displayed'] = true;
+        $_SESSION['primary_sweetalert_displayed'] = true;
         header("location:add-teacher.php");
         exit();
     } else {

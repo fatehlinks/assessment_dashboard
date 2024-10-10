@@ -27,7 +27,7 @@ if (isset($_POST['add-admin-profile-btn'])) {
         $admin_profile_qry_run = mysqli_query($cn, $admin_profile_qry);
 
         if ($admin_profile_qry_run) {
-            $_SESSION['success_sweetalert_displayed'] = true;
+            $_SESSION['primary_sweetalert_displayed'] = true;
             header("location:admin-profile.php");
             exit();
         } else {
@@ -74,7 +74,7 @@ if (isset($_POST['add-course-btn'])) {
             $add_course_qry = "INSERT INTO courses (course_name,course_description,course_picture) VALUES ('$course_name','$course_description','$insert_picture')";
             $add_course_qry_run = mysqli_query($cn, $add_course_qry);
             if ($add_course_qry_run) {
-                $_SESSION['success_sweetalert_displayed'] = true;
+                $_SESSION['primary_sweetalert_displayed'] = true;
                 header("location:courses.php");
                 exit();
             }

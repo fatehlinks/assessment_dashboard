@@ -8,58 +8,56 @@ $("#users-carousel").owlCarousel({
   loop: true,
   responsive: {
     0: {
-      items: 2
+      items: 2,
     },
     578: {
-      items: 4
+      items: 4,
     },
     768: {
-      items: 4
-    }
-  }
+      items: 4,
+    },
+  },
 });
 
 // Follow function
-$('.follow-btn, .following-btn').each(function () {
+$(".follow-btn, .following-btn").each(function () {
   var me = $(this),
-    follow_text = 'Follow',
-    unfollow_text = 'Following';
+    follow_text = "Follow",
+    unfollow_text = "Following";
 
   me.click(function () {
-    if (me.hasClass('following-btn')) {
-      me.removeClass('btn-danger');
-      me.removeClass('following-btn');
-      me.addClass('btn-primary');
+    if (me.hasClass("following-btn")) {
+      me.removeClass("btn-danger");
+      me.removeClass("following-btn");
+      me.addClass("btn-primary");
       me.html(follow_text);
-
     } else {
-      me.removeClass('btn-primary');
-      me.addClass('btn-danger');
-      me.addClass('following-btn');
+      me.removeClass("btn-primary");
+      me.addClass("btn-danger");
+      me.addClass("following-btn");
       me.html(unfollow_text);
-
     }
     return false;
   });
 });
 
-  var draw = Chart.controllers.line.prototype.draw;
-  Chart.controllers.lineShadow = Chart.controllers.line.extend({
-    draw: function () {
-      draw.apply(this, arguments);
-      var ctx = this.chart.chart.ctx;
-      var _stroke = ctx.stroke;
-      ctx.stroke = function () {
-        ctx.save();
-        ctx.shadowColor = "#00000075";
-        ctx.shadowBlur = 10;
-        ctx.shadowOffsetX = 8;
-        ctx.shadowOffsetY = 8;
-        _stroke.apply(this, arguments);
-        ctx.restore();
-      };
-    }
-  });
+var draw = Chart.controllers.line.prototype.draw;
+Chart.controllers.lineShadow = Chart.controllers.line.extend({
+  draw: function () {
+    draw.apply(this, arguments);
+    var ctx = this.chart.chart.ctx;
+    var _stroke = ctx.stroke;
+    ctx.stroke = function () {
+      ctx.save();
+      ctx.shadowColor = "#00000075";
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetX = 8;
+      ctx.shadowOffsetY = 8;
+      _stroke.apply(this, arguments);
+      ctx.restore();
+    };
+  },
+});
 
 // card chart 1
 var ctx = document.getElementById("cardChart1").getContext("2d");
@@ -73,48 +71,54 @@ var myChart = new Chart(ctx, {
   data: {
     labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
     type: "line",
-    datasets: [{
-      label: "Income",
-      data: [0, 30, 10, 120, 50, 63, 10],
-      borderColor: gradientStroke2,
-      pointBorderColor: gradientStroke2,
-      pointBackgroundColor: gradientStroke2,
-      pointHoverBackgroundColor: gradientStroke2,
-      pointHoverBorderColor: gradientStroke2,
-      pointBorderWidth: 5,
-      pointHoverRadius: 5,
-      pointHoverBorderWidth: 1,
-      pointRadius: 0.5,
-      fill: false,
-      borderWidth: 4
-    }]
+    datasets: [
+      {
+        label: "Income",
+        data: [0, 30, 10, 120, 50, 63, 10],
+        borderColor: gradientStroke2,
+        pointBorderColor: gradientStroke2,
+        pointBackgroundColor: gradientStroke2,
+        pointHoverBackgroundColor: gradientStroke2,
+        pointHoverBorderColor: gradientStroke2,
+        pointBorderWidth: 5,
+        pointHoverRadius: 5,
+        pointHoverBorderWidth: 1,
+        pointRadius: 0.5,
+        fill: false,
+        borderWidth: 4,
+      },
+    ],
   },
   options: {
     legend: {
-      display: false
+      display: false,
     },
     tooltips: {},
     scales: {
-      yAxes: [{
-        ticks: {
-          display: false //this will remove only the label
+      yAxes: [
+        {
+          ticks: {
+            display: false, //this will remove only the label
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
         },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        }
-      }],
-      xAxes: [{
-        gridLines: {
-          display: false,
-          drawBorder: false
+      ],
+      xAxes: [
+        {
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
+          ticks: {
+            display: false, //this will remove only the label
+          },
         },
-        ticks: {
-          display: false //this will remove only the label
-        }
-      }]
-    }
-  }
+      ],
+    },
+  },
 });
 
 // card chart 2
@@ -128,48 +132,54 @@ var myChart = new Chart(ctx, {
   data: {
     labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
     type: "line",
-    datasets: [{
-      label: "Income",
-      data: [0, 30, 10, 120, 50, 63, 10],
-      borderColor: gradientStroke2,
-      pointBorderColor: gradientStroke2,
-      pointBackgroundColor: gradientStroke2,
-      pointHoverBackgroundColor: gradientStroke2,
-      pointHoverBorderColor: gradientStroke2,
-      pointBorderWidth: 5,
-      pointHoverRadius: 5,
-      pointHoverBorderWidth: 1,
-      pointRadius: 0.5,
-      fill: false,
-      borderWidth: 4
-    }]
+    datasets: [
+      {
+        label: "Income",
+        data: [0, 30, 10, 120, 50, 63, 10],
+        borderColor: gradientStroke2,
+        pointBorderColor: gradientStroke2,
+        pointBackgroundColor: gradientStroke2,
+        pointHoverBackgroundColor: gradientStroke2,
+        pointHoverBorderColor: gradientStroke2,
+        pointBorderWidth: 5,
+        pointHoverRadius: 5,
+        pointHoverBorderWidth: 1,
+        pointRadius: 0.5,
+        fill: false,
+        borderWidth: 4,
+      },
+    ],
   },
   options: {
     legend: {
-      display: false
+      display: false,
     },
     tooltips: {},
     scales: {
-      yAxes: [{
-        ticks: {
-          display: false //this will remove only the label
+      yAxes: [
+        {
+          ticks: {
+            display: false, //this will remove only the label
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
         },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        }
-      }],
-      xAxes: [{
-        gridLines: {
-          display: false,
-          drawBorder: false
+      ],
+      xAxes: [
+        {
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
+          ticks: {
+            display: false, //this will remove only the label
+          },
         },
-        ticks: {
-          display: false //this will remove only the label
-        }
-      }]
-    }
-  }
+      ],
+    },
+  },
 });
 
 // card chart 3
@@ -184,48 +194,54 @@ var myChart = new Chart(ctx, {
   data: {
     labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
     type: "line",
-    datasets: [{
-      label: "Income",
-      data: [0, 30, 10, 120, 50, 63, 10],
-      borderColor: gradientStroke2,
-      pointBorderColor: gradientStroke2,
-      pointBackgroundColor: gradientStroke2,
-      pointHoverBackgroundColor: gradientStroke2,
-      pointHoverBorderColor: gradientStroke2,
-      pointBorderWidth: 5,
-      pointHoverRadius: 5,
-      pointHoverBorderWidth: 1,
-      pointRadius: 0.5,
-      fill: false,
-      borderWidth: 4
-    }]
+    datasets: [
+      {
+        label: "Income",
+        data: [0, 30, 10, 120, 50, 63, 10],
+        borderColor: gradientStroke2,
+        pointBorderColor: gradientStroke2,
+        pointBackgroundColor: gradientStroke2,
+        pointHoverBackgroundColor: gradientStroke2,
+        pointHoverBorderColor: gradientStroke2,
+        pointBorderWidth: 5,
+        pointHoverRadius: 5,
+        pointHoverBorderWidth: 1,
+        pointRadius: 0.5,
+        fill: false,
+        borderWidth: 4,
+      },
+    ],
   },
   options: {
     legend: {
-      display: false
+      display: false,
     },
     tooltips: {},
     scales: {
-      yAxes: [{
-        ticks: {
-          display: false //this will remove only the label
+      yAxes: [
+        {
+          ticks: {
+            display: false, //this will remove only the label
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
         },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        }
-      }],
-      xAxes: [{
-        gridLines: {
-          display: false,
-          drawBorder: false
+      ],
+      xAxes: [
+        {
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
+          ticks: {
+            display: false, //this will remove only the label
+          },
         },
-        ticks: {
-          display: false //this will remove only the label
-        }
-      }]
-    }
-  }
+      ],
+    },
+  },
 });
 
 // card chart 4
@@ -240,46 +256,52 @@ var myChart = new Chart(ctx, {
   data: {
     labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
     type: "line",
-    datasets: [{
-      label: "Income",
-      data: [0, 30, 10, 120, 50, 63, 10],
-      borderColor: gradientStroke2,
-      pointBorderColor: gradientStroke2,
-      pointBackgroundColor: gradientStroke2,
-      pointHoverBackgroundColor: gradientStroke2,
-      pointHoverBorderColor: gradientStroke2,
-      pointBorderWidth: 5,
-      pointHoverRadius: 5,
-      pointHoverBorderWidth: 1,
-      pointRadius: 0.5,
-      fill: false,
-      borderWidth: 4
-    }]
+    datasets: [
+      {
+        label: "Income",
+        data: [0, 30, 10, 120, 50, 63, 10],
+        borderColor: gradientStroke2,
+        pointBorderColor: gradientStroke2,
+        pointBackgroundColor: gradientStroke2,
+        pointHoverBackgroundColor: gradientStroke2,
+        pointHoverBorderColor: gradientStroke2,
+        pointBorderWidth: 5,
+        pointHoverRadius: 5,
+        pointHoverBorderWidth: 1,
+        pointRadius: 0.5,
+        fill: false,
+        borderWidth: 4,
+      },
+    ],
   },
   options: {
     legend: {
-      display: false
+      display: false,
     },
     tooltips: {},
     scales: {
-      yAxes: [{
-        ticks: {
-          display: false //this will remove only the label
+      yAxes: [
+        {
+          ticks: {
+            display: false, //this will remove only the label
+          },
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
         },
-        gridLines: {
-          display: false,
-          drawBorder: false
-        }
-      }],
-      xAxes: [{
-        gridLines: {
-          display: false,
-          drawBorder: false
+      ],
+      xAxes: [
+        {
+          gridLines: {
+            display: false,
+            drawBorder: false,
+          },
+          ticks: {
+            display: false, //this will remove only the label
+          },
         },
-        ticks: {
-          display: false //this will remove only the label
-        }
-      }]
-    }
-  }
+      ],
+    },
+  },
 });

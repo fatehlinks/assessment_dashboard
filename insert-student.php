@@ -41,8 +41,8 @@ if (isset($_POST['add-student-btn'])) {
         // Execute the query
         if (mysqli_query($cn, $insert_query)) {
             // Set a session variable to trigger the SweetAlert
-            $_SESSION['success_sweetalert_displayed'] = true;
-            header("Location: add-student.php"); // Redirect after successful insertion
+            $_SESSION['primary_sweetalert_displayed'] = true;
+            header("Location: add-student.php"); // Redirect after primaryful insertion
         } else {
             // Error handling
             $_SESSION['error_sweetalert_displayed'] = true;

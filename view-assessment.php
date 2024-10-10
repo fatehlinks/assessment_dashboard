@@ -1,9 +1,9 @@
 <?php include('auth.php'); ?>
 <?php
 // Set a session variable to trigger the SweetAlert
-if (!empty($_SESSION['success_sweetalert_displayed'])) {
-    $displaySuccessSweetAlert = true;
-    unset($_SESSION['success_sweetalert_displayed']);
+if (!empty($_SESSION['primary_sweetalert_displayed'])) {
+    $displayprimarySweetAlert = true;
+    unset($_SESSION['primary_sweetalert_displayed']);
 }
 
 ?>
@@ -100,7 +100,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                                         $assessment_status = $row['assessment_status'];
 
                                                         if ($assessment_status == 2) {
-                                                            $assessment_status = "<b class='text-success'>Completed</b>";
+                                                            $assessment_status = "<b class='text-primary'>Completed</b>";
                                                         } else {
                                                             $assessment_status = "<b class='text-warning'>Continue</b>";
                                                         }
@@ -154,13 +154,13 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
 <?php include_once('include/js-sources.html'); ?>
 
 <!-- SweetAlert Script -->
-<?php if (!empty($displaySuccessSweetAlert)): ?>
+<?php if (!empty($displayprimarySweetAlert)): ?>
     <script>
         $(document).ready(function() {
             swal({
                 title: "Congrats",
-                text: "Operation successfully completed.",
-                icon: "success",
+                text: "Operation primaryfully completed.",
+                icon: "primary",
                 button: "OK"
             });
         });

@@ -3,9 +3,9 @@
 <?php
 
 // Set session variables for SweetAlert
-if (!empty($_SESSION['success_sweetalert_displayed'])) {
-    $displaySuccessSweetAlert = true;
-    unset($_SESSION['success_sweetalert_displayed']);
+if (!empty($_SESSION['primary_sweetalert_displayed'])) {
+    $displayprimarySweetAlert = true;
+    unset($_SESSION['primary_sweetalert_displayed']);
 }
 
 // Check if the ID is set in the query string
@@ -38,7 +38,7 @@ if (isset($_POST['update-subject'])) {
     $update_subject_qry = "UPDATE subjects SET subject_name = '$subject_name', subject_grade = '$subject_grade' WHERE subject_id = '$subject_id'";
 
     if (mysqli_query($cn, $update_subject_qry)) {
-        $_SESSION['success_sweetalert_displayed'] = true;
+        $_SESSION['primary_sweetalert_displayed'] = true;
         header("location:add-subject.php");
         exit();
     } else {
@@ -129,13 +129,13 @@ if (isset($_POST['update-subject'])) {
 <!-- Page Specific JS File -->
 <script src="assets/js/page/forms-advanced-forms.js"></script>
 
-<?php if (!empty($displaySuccessSweetAlert)): ?>
+<?php if (!empty($displayprimarySweetAlert)): ?>
     <script>
         $(document).ready(function() {
             swal({
-                title: "Success",
-                text: "Subject updated successfully.",
-                icon: "success",
+                title: "primary",
+                text: "Subject updated primaryfully.",
+                icon: "primary",
                 button: "OK"
             });
         });

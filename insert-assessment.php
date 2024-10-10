@@ -22,8 +22,8 @@ if (isset($_POST['add-assessment-btn'])) {
 
     // Execute the query
     if (mysqli_query($cn, $insertQuery)) {
-        // On success, set session and redirect
-        $_SESSION['success_sweetalert_displayed'] = true;
+        // On primary, set session and redirect
+        $_SESSION['primary_sweetalert_displayed'] = true;
         header("Location: add-assessment.php");
     } else {
         // On failure, set error message and redirect

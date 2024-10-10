@@ -38,7 +38,7 @@ if (isset($_POST['update-teacher-btn'])) {
                            WHERE teacher_id = '$teacher_id'";
 
     if (mysqli_query($cn, $update_teacher_qry)) {
-        $_SESSION['success_sweetalert_displayed'] = true;
+        $_SESSION['primary_sweetalert_displayed'] = true;
         header("location:add-teacher.php");
         exit();
     } else {
@@ -149,13 +149,13 @@ if (isset($_POST['update-teacher-btn'])) {
     $(":input").inputmask();
 </script>
 <!-- SweetAlert Script -->
-<?php if (!empty($displaySuccessSweetAlert)): ?>
+<?php if (!empty($displayprimarySweetAlert)): ?>
     <script>
         $(document).ready(function() {
             swal({
-                title: "Success",
-                text: "Teacher updated successfully.",
-                icon: "success",
+                title: "primary",
+                text: "Teacher updated primaryfully.",
+                icon: "primary",
                 button: "OK"
             });
         });

@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
     $status_qry = "UPDATE students SET student_status = 0 WHERE student_id = '$student_id'";
 
     if (mysqli_query($cn, $status_qry)) {
-        $_SESSION['success_sweetalert_displayed'] = true;
+        $_SESSION['primary_sweetalert_displayed'] = true;
         header("location:view-students.php");
         exit();
     } else {

@@ -9,7 +9,7 @@ if (isset($_POST['add-subject'])) {
     $add_subject_qry = "INSERT INTO subjects (subject_name, subject_grade , subject_status) VALUES('$subject_name', '$subject_grade' , '$subject_status')";
     $add_subject_qry_run = mysqli_query($cn, $add_subject_qry);
     if ($add_subject_qry_run) {
-        $_SESSION['success_sweetalert_displayed'] = true;
+        $_SESSION['primary_sweetalert_displayed'] = true;
         header("location:add-subject.php");
         exit();
     }

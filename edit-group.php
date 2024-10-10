@@ -39,7 +39,7 @@ if (isset($_POST['update-group-btn'])) {
                               WHERE group_id = '$group_id'";
 
         if (mysqli_query($cn, $update_group_qry)) {
-            $_SESSION['success_sweetalert_displayed'] = true;
+            $_SESSION['primary_sweetalert_displayed'] = true;
             header("location:add-group.php");
             exit();
         } else {
@@ -125,13 +125,13 @@ if (isset($_POST['update-group-btn'])) {
 <script src="assets/js/page/forms-advanced-forms.js"></script>
 
 <!-- SweetAlert Script -->
-<?php if (!empty($displaySuccessSweetAlert)): ?>
+<?php if (!empty($displayprimarySweetAlert)): ?>
     <script>
         $(document).ready(function() {
             swal({
-                title: "Success",
-                text: "Group updated successfully.",
-                icon: "success",
+                title: "primary",
+                text: "Group updated primaryfully.",
+                icon: "primary",
                 button: "OK"
             });
         });

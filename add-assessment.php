@@ -1,9 +1,9 @@
 <?php include('auth.php'); ?>
 <?php
 // Set a session variable to trigger the SweetAlert
-if (!empty($_SESSION['success_sweetalert_displayed'])) {
-    $displaySuccessSweetAlert = true;
-    unset($_SESSION['success_sweetalert_displayed']);
+if (!empty($_SESSION['primary_sweetalert_displayed'])) {
+    $displayprimarySweetAlert = true;
+    unset($_SESSION['primary_sweetalert_displayed']);
 }
 
 // Fetch groups from the database
@@ -284,7 +284,7 @@ $subjectsResult = mysqli_query($cn, $query);
                     group_name: groupName // Send group name instead of ID
                 },
                 dataType: 'json',
-                success: function(response) {
+                primary: function(response) {
                     // Clear the previous options
                     $('#group-category').empty();
 
@@ -304,18 +304,18 @@ $subjectsResult = mysqli_query($cn, $query);
     });
 </script>
 
-<?php if (!empty($displaySuccessSweetAlert)): ?>
+<?php if (!empty($displayprimarySweetAlert)): ?>
     <script>
         $(document).ready(function() {
             swal({
                 title: "Congrats",
-                text: "Operation successfully completed.",
-                icon: "success",
+                text: "Operation primaryfully completed.",
+                icon: "primary",
                 button: "OK"
             });
         });
     </script>
-    <?php unset($_SESSION['success_sweetalert_displayed']); ?>
+    <?php unset($_SESSION['primary_sweetalert_displayed']); ?>
 <?php endif; ?>
 
 <?php if (!empty($_SESSION['error_sweetalert_displayed'])): ?>
@@ -352,7 +352,7 @@ $subjectsResult = mysqli_query($cn, $query);
                         section: section
                     },
                     dataType: 'json',
-                    success: function(response) {
+                    primary: function(response) {
                         if (response.student_count) {
                             $('input[name="assessmt_number_of_students"]').val(response.student_count);
                         } else {

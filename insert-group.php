@@ -9,7 +9,7 @@ if (isset($_POST['add-group'])) {
     $add_group_qry = "INSERT INTO groups (group_name, group_category , group_status) VALUES('$group_name', '$group_category' , '$group_status')";
     $add_group_qry_run = mysqli_query($cn, $add_group_qry);
     if ($add_group_qry_run) {
-        $_SESSION['success_sweetalert_displayed'] = true;
+        $_SESSION['primary_sweetalert_displayed'] = true;
         header("location:add-group.php");
         exit();
     }

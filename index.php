@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
@@ -83,18 +84,18 @@
 
 <?php
 include('config.php');
-if(isset($_POST['admin-login-btn'])){
-  $email=trim($_POST['email']);
-  $password=trim($_POST['password']);
-  $admin_auth_qry="SELECT * FROM admin WHERE admin_email='$email' AND admin_password='$password'";
-  $admin_auth_qry_run=mysqli_query($cn,$admin_auth_qry);
+if (isset($_POST['admin-login-btn'])) {
+  $email = trim($_POST['email']);
+  $password = trim($_POST['password']);
+  $admin_auth_qry = "SELECT * FROM admin WHERE admin_email='$email' AND admin_password='$password'";
+  $admin_auth_qry_run = mysqli_query($cn, $admin_auth_qry);
   $num_of_row = mysqli_num_rows($admin_auth_qry_run);
-  if($num_of_row>0){
+  if ($num_of_row > 0) {
     session_start();
-    $_SESSION['admUser']=$email;
+    $_SESSION['admUser'] = $email;
     header("location:dashboard.php");
     exit();
-  }else{
+  } else {
     echo "<script>alert('Invalid Credentials')</script>";
   }
 }

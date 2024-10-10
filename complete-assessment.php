@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
     $status_qry = "UPDATE assessments SET assessment_status = 2 WHERE assessment_id = '$assessment_id'";
 
     if (mysqli_query($cn, $status_qry)) {
-        $_SESSION['success_sweetalert_displayed'] = true;
+        $_SESSION['primary_sweetalert_displayed'] = true;
         header("location:view-assessment.php");
         exit();
     } else {

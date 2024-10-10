@@ -92,8 +92,8 @@ if (isset($_POST['edit-student-btn'])) {
 
     // Execute the query
     if (mysqli_stmt_execute($stmt)) {
-        // If update was successful, redirect to the students page or show a success message
-        $_SESSION['success_sweetalert_displayed'] = true;
+        // If update was primaryful, redirect to the students page or show a primary message
+        $_SESSION['primary_sweetalert_displayed'] = true;
         header('Location: view-students.php');
     } else {
         // If there was an error, show an error message
@@ -364,7 +364,7 @@ if (isset($_POST['edit-student-btn'])) {
                     group_name: groupName // Send group name instead of ID
                 },
                 dataType: 'json',
-                success: function(response) {
+                primary: function(response) {
                     // Clear the previous options
                     $('#group-category').empty();
 
@@ -400,18 +400,18 @@ if (isset($_POST['edit-student-btn'])) {
     });
 </script>
 
-<?php if (!empty($displaySuccessSweetAlert)): ?>
+<?php if (!empty($displayprimarySweetAlert)): ?>
     <script>
         $(document).ready(function() {
             swal({
                 title: "Congrats",
-                text: "Operation successfully completed.",
-                icon: "success",
+                text: "Operation primaryfully completed.",
+                icon: "primary",
                 button: "OK"
             });
         });
     </script>
-    <?php unset($_SESSION['success_sweetalert_displayed']); ?>
+    <?php unset($_SESSION['primary_sweetalert_displayed']); ?>
 <?php endif; ?>
 
 <?php if (!empty($_SESSION['error_sweetalert_displayed'])): ?>
