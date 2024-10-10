@@ -145,8 +145,8 @@ $subjectsResult = mysqli_query($cn, $query);
                                                         <th>Name</th>
                                                         <th>CNIC</th>
                                                         <th>Mobile</th>
-                                                        <th>Joining Date</th>
-                                                        <th>Date of Birth</th>
+                                                        <th>Joining</th>
+                                                        <th>DOB</th>
                                                         <th>Subject</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
@@ -164,8 +164,8 @@ $subjectsResult = mysqli_query($cn, $query);
                                                         $teacher_id = $row['teacher_id'];
                                                         $teacher_name = $row['teacher_name'];
                                                         $teacher_cnic = $row['teacher_cnic'];
-                                                        $teacher_joining_date = $row['teacher_joining_date'];
-                                                        $teacher_dob = $row['teacher_dob'];
+                                                        $teacher_joining_date = date("d-M-Y", strtotime($row['teacher_joining_date']));
+                                                        $teacher_dob = date("d-M-Y", strtotime($row['teacher_dob']));
                                                         $teacher_mobile = $row['teacher_mobile'];
                                                         $subject_name = $row['subject_name'];
                                                         $teacher_status = $row['teacher_status'];
