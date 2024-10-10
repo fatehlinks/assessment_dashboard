@@ -15,7 +15,10 @@
     $student_id = $_GET['id'];
 
     // Fetch student data
-    $query = "SELECT * FROM students WHERE student_id = ?";
+    $query = "SELECT students.*, groups.group_name , groups.group_category
+              FROM students 
+              JOIN groups ON students.student_group = groups.group_id
+               WHERE student_id = ? AND  student_status != -1";
     $stmt = $cn->prepare($query);
     $stmt->bind_param("i", $student_id);
     $stmt->execute();
@@ -24,7 +27,15 @@
     if ($result->num_rows > 0) {
       $student = $result->fetch_assoc();
       $student_name = $student['student_name'];
+      $student_father_name = $student['student_father_name'];
+      $student_mobile = $student['student_mobile'];
+      $student_cnic = $student['student_cnic'];
       $student_address = $student['student_address'];
+      $student_dob = date("d-M-Y", strtotime($student['student_dob']));
+
+      $student_group = $student['group_name'];
+      $student_group_category = $student['group_category'];
+      $student_section = $student['student_section'];
       // Add other student data as needed
     } else {
       // Handle case where student is not found
@@ -58,38 +69,53 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="invoice-title">
-                      <h2>Logo</h2>
+                      <h2> <img src="./assets/img/tef-logo.png" alt="tef logo">
+                      </h2>
                       <div class="invoice-number">Reg #<?= $student['student_reg_id']; ?></div>
                     </div>
                     <hr>
                     <div class="row">
                       <div class="col-md-6">
                         <address>
-                          <strong>Billed To:</strong><br>
-                          <?php echo $student_name; ?><br>
-                          <?php echo $student_address; ?><br>
+                          <h5 class="mb-2">Studnet Details :</h5>
+                          <div class="d-flex flex-column">
+                            <p class="m-0"> <strong>Name :</strong> <?php echo $student_name; ?></p>
+                            <p class="m-0"><strong>Category :</strong> <?php echo $student_father_name; ?></p>
+                            <p class="m-0"> <strong>CNIC :</strong> <?php echo $student_cnic; ?></p>
+                            <p class="m-0"> <strong>DOB :</strong> <?php echo $student_dob; ?></p>
+                          </div>
                           <!-- Add more student fields as necessary -->
                         </address>
                       </div>
                       <div class="col-md-6 text-md-right">
                         <address>
-                          <strong>Shipped To:</strong><br>
+                          <h5 class="mb-2">Contact Details :</h5>
+                          <div class="d-flex flex-column">
+                            <p class="m-0"> <strong>Mobile :</strong> <?php echo $student_mobile; ?></p>
+                            <p class="m-0"> <strong>Address :</strong> <?php echo $student_address; ?></p>
+
+                          </div>
                           <!-- Add shipping address or additional details if applicable -->
                         </address>
                       </div>
                     </div>
-                    <div class="row">
+
+                    <div class="row mt-4">
                       <div class="col-md-6">
                         <address>
-                          <strong>Payment Method:</strong><br>
-                          Visa ending **** 5687<br>
-                          test@example.com
+                          <h5 class="mb-2">Program :</h5>
+                          <div class="d-flex flex-column gap-0">
+                            <p class="m-0"> <strong>Group :</strong> <?php echo $student_group; ?></p>
+                            <p class="m-0"><strong>Category :</strong> <?php echo $student_group_category; ?></p>
+                            <p class="m-0"> <strong>Section :</strong> <?php echo $student_section; ?></p>
+                          </div>
+                          <!-- Add more student fields as necessary -->
                         </address>
                       </div>
                       <div class="col-md-6 text-md-right">
                         <address>
-                          <strong>Order Date:</strong><br>
-                          June 26, 2018<br><br>
+                          <!-- <strong>Order Date:</strong><br>
+                          June 26, 2018<br><br> -->
                         </address>
                       </div>
                     </div>
@@ -97,10 +123,10 @@
                 </div>
                 <div class="row mt-4">
                   <div class="col-md-12">
-                    <div class="section-title">Order Summary</div>
-                    <p class="section-lead">All items here cannot be deleted.</p>
+                    <div class="section-title">Assessment Summary</div>
+                    <p class="section-lead"></p>
                     <div class="table-responsive">
-                      <table class="table table-striped table-hover table-md">
+                      <table class="table table-striped table-hover table-md mt-3">
                         <tr>
                           <th data-width="40">#</th>
                           <th>Item</th>
@@ -131,42 +157,13 @@
                         </tr>
                       </table>
                     </div>
-                    <div class="row mt-4">
-                      <div class="col-lg-8">
-                        <div class="section-title">Payment Method</div>
-                        <p class="section-lead">The payment method that we provide is to make it easier for you to pay invoices.</p>
-                        <div class="images">
-                          <img src="assets/img/cards/visa.png" alt="visa">
-                          <img src="assets/img/cards/jcb.png" alt="jcb">
-                          <img src="assets/img/cards/mastercard.png" alt="mastercard">
-                          <img src="assets/img/cards/paypal.png" alt="paypal">
-                        </div>
-                      </div>
-                      <div class="col-lg-4 text-right">
-                        <div class="invoice-detail-item">
-                          <div class="invoice-detail-name">Subtotal</div>
-                          <div class="invoice-detail-value">$670.99</div>
-                        </div>
-                        <div class="invoice-detail-item">
-                          <div class="invoice-detail-name">Shipping</div>
-                          <div class="invoice-detail-value">$15</div>
-                        </div>
-                        <hr class="mt-2 mb-2">
-                        <div class="invoice-detail-item">
-                          <div class="invoice-detail-name">Total</div>
-                          <div class="invoice-detail-value invoice-detail-value-lg">$685.99</div>
-                        </div>
-                      </div>
-                    </div>
+
                   </div>
                 </div>
               </div>
               <hr>
               <div class="text-md-right">
-                <div class="float-lg-left mb-lg-0 mb-3">
-                  <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process Payment</button>
-                  <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button>
-                </div>
+
                 <button class="btn btn-warning btn-icon icon-left" id="print-button"><i class="fas fa-print"></i> Print</button>
               </div>
             </div>
