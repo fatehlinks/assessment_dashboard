@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="dashboard.php"> <img alt="image" src="assets/img/logo.png" class="header-logo" /> <span
+      <a href="dashboard.php"> <img alt="image" src="./assets/img/favicon.png" class="header-logo" /> <span
           class="logo-name">Admin</span>
       </a>
     </div>
