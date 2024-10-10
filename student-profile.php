@@ -71,7 +71,7 @@
                     <div class="invoice-title">
                       <h2> <img src="./assets/img/tef-logo.png" alt="tef logo">
                       </h2>
-                      <div class="invoice-number">Reg #<?= $student['student_reg_id']; ?></div>
+                      <div class="invoice-number">Reg # : <?= $student['student_reg_id']; ?></div>
                     </div>
                     <hr>
                     <div class="row">

@@ -41,7 +41,7 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                                         <th>Name</th>
                                                         <th>CNIC</th>
                                                         <th>Mobile</th>
-                                                        <th>Subject</th>
+                                                        <th>Group</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>

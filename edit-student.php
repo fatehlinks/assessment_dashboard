@@ -264,6 +264,7 @@ if (isset($_POST['edit-student-btn'])) {
                                                     </div>
                                                 </div> <!-- /col -->
 
+                                                <!-- Group Dropdown -->
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Group<span class="text-danger">*</span> :</label>
@@ -277,13 +278,8 @@ if (isset($_POST['edit-student-btn'])) {
                                                             foreach ($groups as $group):
                                                                 // Check if the group name is already in the array
                                                                 if (!in_array($group['group_name'], $uniqueGroupNames)):
-
                                                                     $uniqueGroupNames[] = $group['group_name'];
-                                                                    if ($group['group_id'] == $student['student_mobile']) {
-                                                                        $selected = "selectd";
-                                                                    } else {
-                                                                        $selected = "";
-                                                                    }
+                                                                    $selected = ($group['group_id'] == $student['student_group']) ? 'selected' : ''; // Check against the student's group
                                                             ?>
                                                                     <option <?= $selected ?> value="<?= $group['group_id']; ?>"><?= $group['group_name']; ?></option>
                                                             <?php
@@ -302,6 +298,7 @@ if (isset($_POST['edit-student-btn'])) {
 
                                             <div class="row">
 
+                                                <!-- Group Category Dropdown -->
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Group Category:</label>
@@ -387,10 +384,12 @@ if (isset($_POST['edit-student-btn'])) {
         }
 
         // On page load, fetch categories for the selected group
+        var initialGroupId = '<?= $student['student_group']; ?>'; // Get the student's current group ID
         var initialGroupName = $('#group-select option:selected').text(); // Get the initially selected group name
         var selectedCategory = "<?= $student['student_group_category']; ?>"; // Get the student's current group category
+
         if (initialGroupName) {
-            fetchGroupCategories(initialGroupName, selectedCategory);
+            fetchGroupCategories(initialGroupName, selectedCategory); // Fetch categories with pre-selected category
         }
 
         // Fetch categories when the group is changed
