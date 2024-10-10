@@ -32,12 +32,14 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                 <div class="card">
                                     <div class="card-header">
                                         <h4><i data-feather="eye"></i> All Assessments</h4>
+
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body p-2">
                                         <div class="table-responsive">
                                             <table class="table small table-striped table-hover" style='font-size:10px' id="tableExport" style="width:100%;">
                                                 <thead>
                                                     <tr>
+                                                        <th>Ass#</th>
                                                         <th>Date</th>
                                                         <th>Grade</th>
                                                         <th>Subject</th>
@@ -98,13 +100,14 @@ if (!empty($_SESSION['success_sweetalert_displayed'])) {
                                                         $assessment_status = $row['assessment_status'];
 
                                                         if ($assessment_status == 2) {
-                                                            $assessment_status = "<span class='badge badge-success btn-sm'>Completed</span>";
+                                                            $assessment_status = "<b class='text-success'>Completed</b>";
                                                         } else {
-                                                            $assessment_status = "<span class='badge badge-warning small'>Continue</span>";
+                                                            $assessment_status = "<b class='text-warning'>Continue</b>";
                                                         }
 
                                                     ?>
                                                         <tr>
+                                                            <td><strong class=""><?= $assessment_id ?></strong></td>
                                                             <td><?= $assessment_date; ?></td>
                                                             <td><?= $grade; ?></td>
                                                             <td><?= $subject_name; ?></td>

@@ -64,7 +64,7 @@
       <div class="main-content">
         <section class="section">
           <div class="section-body">
-            <div class="invoice">
+            <div class="invoice" id="invoice">
               <div class="invoice-print">
                 <div class="row">
                   <div class="col-lg-12">

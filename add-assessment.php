@@ -45,7 +45,25 @@ $subjectsResult = mysqli_query($cn, $query);
                                 <div class="card">
                                     <form class="needs-validation" novalidate="" method="post" action="insert-assessment.php">
                                         <div class="card-header">
-                                            <h4><i data-feather="plus"></i> Add Assessment</h4>
+                                            <div class="d-flex justify-content-between align-items-center w-100">
+                                                <h4 class="mb-0"><i data-feather="plus"></i> Add Assessment</h4>
+
+                                                <!-- Assessment Last Id -->
+                                                <?php
+                                                $sql = "SELECT assessment_id FROM assessments ORDER BY assessment_id DESC LIMIT 1";
+                                                $result = $cn->query($sql);
+
+                                                if ($result->num_rows > 0) {
+                                                    $row = $result->fetch_assoc();
+                                                    $last_assessment_id = $row['assessment_id']; // Store the ID in a variable
+                                                } else {
+                                                    $last_assessment_id = "N/A"; // Handle case where no ID is found
+                                                }
+                                                ?>
+                                                <span class='badge badge-warning small'>Assessment No. : <?= $last_assessment_id + 1 ?></span>
+                                            </div>
+
+
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
