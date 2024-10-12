@@ -27,6 +27,14 @@
         </ul>
       </li>
 
+      <li class="dropdown">
+        <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="check-square"></i><span>Marking</span></a>
+        <ul class="dropdown-menu">
+          <li><a class="nav-link" href="add-assessment.php">Add Marking</a></li>
+          <li><a class="nav-link" href="view-assessment.php">View Marks</a></li>
+        </ul>
+      </li>
+
       <li class="menu-header">Settings</li>
       <li class="dropdown">
         <a href="add-group.php" class="nav-link"><i data-feather="layers"></i><span>Group</span></a>
