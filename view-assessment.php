@@ -100,7 +100,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                         $assessment_status = $row['assessment_status'];
 
                                                         if ($assessment_status == 2) {
-                                                            $assessment_status = "<b class='text-primary'>Completed</b>";
+                                                            $assessment_status = "<b class='text-info'>Completed</b>";
                                                         } else {
                                                             $assessment_status = "<b class='text-warning'>Continue</b>";
                                                         }

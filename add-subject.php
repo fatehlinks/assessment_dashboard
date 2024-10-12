@@ -122,7 +122,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
 
                                                         $subject_status = $row['subject_status'];
                                                         if ($subject_status == 1) {
-                                                            $subject_status = "<span class='badge badge-success'>Active</span>";
+                                                            $subject_status = "<span class='badge badge-primary'>Active</span>";
                                                         } else {
                                                             $subject_status = "<span class='badge badge-warning'>Inactive</span>";
                                                         }

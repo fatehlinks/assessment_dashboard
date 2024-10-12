@@ -172,7 +172,7 @@ $subjectsResult = mysqli_query($cn, $query);
 
                                                         // Set the status display
                                                         if ($teacher_status == 1) {
-                                                            $teacher_status_display = "<span class='badge badge-success'>Active</span>";
+                                                            $teacher_status_display = "<span class='badge badge-primary'>Active</span>";
                                                         } else {
                                                             $teacher_status_display = "<span class='badge badge-warning'>Inactive</span>";
                                                         }

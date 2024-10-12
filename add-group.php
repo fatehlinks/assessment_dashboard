@@ -102,7 +102,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
 
                                                         $group_status = $row['group_status'];
                                                         if ($group_status == 1) {
-                                                            $group_status = "<span class='badge badge-success'>Active</span>";
+                                                            $group_status = "<span class='badge badge-primary'>Active</span>";
                                                         } else {
                                                             $group_status = "<span class='badge badge-warning'>Inactive</span>";
                                                         }

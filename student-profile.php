@@ -15,10 +15,14 @@
     $student_id = $_GET['id'];
 
     // Fetch student data
-    $query = "SELECT students.*, groups.group_name , groups.group_category
-              FROM students 
-              JOIN groups ON students.student_group = groups.group_id
-               WHERE student_id = ? AND  student_status != -1";
+    $query = "SELECT students.*, 
+       g1.group_name, 
+       g2.group_category
+        FROM students 
+        JOIN groups AS g1 ON students.student_group = g1.group_id
+        JOIN groups AS g2 ON students.student_group_category = g2.group_id
+        WHERE students.student_id = ? 
+          AND students.student_status != -1";
     $stmt = $cn->prepare($query);
     $stmt->bind_param("i", $student_id);
     $stmt->execute();
