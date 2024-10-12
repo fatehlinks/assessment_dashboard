@@ -7,7 +7,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
 }
 
 // Fetch groups from the database
-$groups_query = "SELECT * FROM groups";
+$groups_query = "SELECT * FROM groups WHERE group_status = 1";
 $groups_result = mysqli_query($cn, $groups_query);
 $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
 

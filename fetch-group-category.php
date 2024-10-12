@@ -5,7 +5,7 @@ if (isset($_POST['group_name'])) {
     $group_name = $_POST['group_name'];
 
     // Fetch group categories based on the group name
-    $query = "SELECT group_id, group_category FROM groups WHERE group_name = ?";
+    $query = "SELECT group_id, group_category FROM groups WHERE group_name = ? AND group_status = 1";
     $stmt = mysqli_prepare($cn, $query);
     mysqli_stmt_bind_param($stmt, 's', $group_name); // Use string for group name
     mysqli_stmt_execute($stmt);
