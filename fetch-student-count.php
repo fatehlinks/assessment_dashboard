@@ -14,7 +14,8 @@ if (isset($_POST['grade']) && isset($_POST['group']) && isset($_POST['group_cate
               AND student_group = '$group' 
               AND student_group_category = '$group_category' 
               AND student_section = '$section'
-              AND student_status == 1";
+              AND student_status = 1";
+
 
     $result = mysqli_query($cn, $query);
 

@@ -1,34 +1,24 @@
 <?php
-// include('config.php');
-// $get_active_courses="SELECT COUNT(course_id) AS total_active_courses FROM courses"; 
-// $get_active_courses_run=mysqli_query($cn,$get_active_courses);
-// if($row_for_active=mysqli_fetch_assoc($get_active_courses_run)){
-//   $total_active_courses=$row_for_active['total_active_courses']; 
-// }
+// Fetch total active students
+$total_active_students_qry = "SELECT COUNT(*) AS total_active_students FROM students WHERE student_status = 1";
+$total_active_students_result = mysqli_query($cn, $total_active_students_qry);
+$total_active_students = mysqli_fetch_assoc($total_active_students_result)['total_active_students'];
 
-// //New Enrolled
-// $get_new_enrolled="SELECT COUNT(enrolled_id) AS total_new_enrolled FROM enrolled WHERE enrolled_status=1"; 
-// $get_new_enrolled_run=mysqli_query($cn,$get_new_enrolled);
-// if($row_for_new_enrolled=mysqli_fetch_assoc($get_new_enrolled_run)){
-//   $total_new_enrolled=$row_for_new_enrolled['total_new_enrolled']; 
-// }
+// Fetch total active teachers
+$total_active_teachers_qry = "SELECT COUNT(*) AS total_active_teachers FROM teachers WHERE teacher_status = 1";
+$total_active_teachers_result = mysqli_query($cn, $total_active_teachers_qry);
+$total_active_teachers = mysqli_fetch_assoc($total_active_teachers_result)['total_active_teachers'];
 
-// //Dropped
-// $get_dropped_enrolled="SELECT COUNT(enrolled_id) AS total_dropped_enrolled FROM enrolled WHERE enrolled_status=0"; 
-// $get_dropped_enrolled_run=mysqli_query($cn,$get_dropped_enrolled);
-// if($row_for_dropped_enrolled=mysqli_fetch_assoc($get_dropped_enrolled_run)){
-//   $total_dropped_enrolled=$row_for_dropped_enrolled['total_dropped_enrolled']; 
-// }
+// Fetch total active assessments
+$total_active_assessments_qry = "SELECT COUNT(*) AS total_active_assessments FROM assessments WHERE assessment_status = 1";
+$total_active_assessments_result = mysqli_query($cn, $total_active_assessments_qry);
+$total_active_assessments = mysqli_fetch_assoc($total_active_assessments_result)['total_active_assessments'];
 
-//  //Passout
-//  $get_passout_enrolled="SELECT COUNT(enrolled_id) AS total_passout_enrolled FROM enrolled WHERE enrolled_status=2"; 
-//  $get_passout_enrolled_run=mysqli_query($cn,$get_passout_enrolled);
-//  if($row_for_passout_enrolled=mysqli_fetch_assoc($get_passout_enrolled_run)){
-//    $total_passout_enrolled=$row_for_passout_enrolled['total_passout_enrolled']; 
-//  }
-
+// Fetch total pending assessments
+$total_pending_assessments_qry = "SELECT COUNT(*) AS total_pending_assessments FROM assessments WHERE assessment_status = 'pending'";
+$total_pending_assessments_result = mysqli_query($cn, $total_pending_assessments_qry);
+$total_pending_assessments = mysqli_fetch_assoc($total_pending_assessments_result)['total_pending_assessments'];
 ?>
-
 
 <div class="main-content">
   <section class="section">
@@ -41,9 +31,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                   <div class="card-content">
                     <h5 class="font-15">Students</h5>
-                    <h2 class="mb-3 font-18"><?php // $total_active_courses; 
-                                              ?></h2>
-                    <p class="mb-0"><span class="col-green">- - - - -</span></p>
+                    <h2 class="mb-3 font-18"><?php echo $total_active_students; ?></h2>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
@@ -56,6 +44,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="card">
           <div class="card-statistic-4">
@@ -64,9 +53,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                   <div class="card-content">
                     <h5 class="font-15"> Teachers</h5>
-                    <h2 class="mb-3 font-18"><?php  //$total_new_enrolled; 
-                                              ?></h2>
-                    <p class="mb-0"><span class="col-orange">- - - - -</span></p>
+                    <h2 class="mb-3 font-18"><?php echo $total_active_teachers; ?></h2>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
@@ -79,6 +66,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="card">
           <div class="card-statistic-4">
@@ -86,10 +74,8 @@
               <div class="row ">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                   <div class="card-content">
-                    <h5 class="font-15">Pending </h5>
-                    <h2 class="mb-3 font-18"><?php // $total_dropped_enrolled; 
-                                              ?></h2>
-                    <p class="mb-0"><span class="col-green">- - - - -</span></p>
+                    <h5 class="font-15">Active Assessments</h5>
+                    <h2 class="mb-3 font-18"><?php echo $total_active_assessments; ?></h2>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
@@ -102,6 +88,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="card">
           <div class="card-statistic-4">
@@ -109,10 +96,8 @@
               <div class="row ">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                   <div class="card-content">
-                    <h5 class="font-15">Completed</h5>
-                    <h2 class="mb-3 font-18"><?php // $total_passout_enrolled; 
-                                              ?></h2>
-                    <p class="mb-0"><span class="col-green">- - - - -</span></p>
+                    <h5 class="font-15">Pending Assessments</h5>
+                    <h2 class="mb-3 font-18"><?php echo $total_pending_assessments; ?></h2>
                   </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">

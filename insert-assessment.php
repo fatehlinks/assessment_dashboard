@@ -16,19 +16,26 @@ if (isset($_POST['add-assessment-btn'])) {
     $assessment_deadline =  $_POST['assessment_deadline'];
     $assessment_status = 1;
 
-    // Insert query
-    $insertQuery = "INSERT INTO assessments (assessment_date, assessment_grade, assessment_subject, assessment_section, assessment_group, assessment_group_category, assessment_number_of_students, assessment_total_marks, assessment_deadline , assessment_status) 
-                    VALUES ('$assessment_date', '$assessment_grade', '$teacher_subject', '$assessment_section', '$assessment_group', ' $assessment_group_category', '$num_of_students', '$total_marks' , '$assessment_deadline' , '$assessment_status')";
-
-    // Execute the query
-    if (mysqli_query($cn, $insertQuery)) {
-        // On primary, set session and redirect
-        $_SESSION['primary_sweetalert_displayed'] = true;
+    if ($num_of_students == "" || $num_of_students == 0) {
+        $_SESSION['error_sweetalert_displayed'] = true;
+        $_SESSION['error_message'] = 'Students not found. Please try again.';
         header("Location: add-assessment.php");
     } else {
-        // On failure, set error message and redirect
-        $_SESSION['error_sweetalert_displayed'] = true;
-        $_SESSION['error_message'] = 'Error adding assessment. Please try again.';
-        header("Location: add-assessment.php");
+
+        // Insert query
+        $insertQuery = "INSERT INTO assessments (assessment_date, assessment_grade, assessment_subject, assessment_section, assessment_group, assessment_group_category, assessment_number_of_students, assessment_total_marks, assessment_deadline , assessment_status) 
+                    VALUES ('$assessment_date', '$assessment_grade', '$teacher_subject', '$assessment_section', '$assessment_group', ' $assessment_group_category', '$num_of_students', '$total_marks' , '$assessment_deadline' , '$assessment_status')";
+
+        // Execute the query
+        if (mysqli_query($cn, $insertQuery)) {
+            // On primary, set session and redirect
+            $_SESSION['primary_sweetalert_displayed'] = true;
+            header("Location: add-assessment.php");
+        } else {
+            // On failure, set error message and redirect
+            $_SESSION['error_sweetalert_displayed'] = true;
+            $_SESSION['error_message'] = 'Error adding assessment. Please try again.';
+            header("Location: add-assessment.php");
+        }
     }
 }

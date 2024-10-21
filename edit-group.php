@@ -25,17 +25,15 @@ if (isset($_GET['id'])) {
 // Update group section
 if (isset($_POST['update-group-btn'])) {
     $group_name = mysqli_real_escape_string($cn, $_POST['group_name']);
-    $group_category = mysqli_real_escape_string($cn, $_POST['group_category']);
 
     // Validate inputs
-    if (empty($group_name) || empty($group_category)) {
+    if (empty($group_name)) {
         $_SESSION['error_sweetalert_displayed'] = true;
         $_SESSION['error_message'] = "All fields are required.";
     } else {
         // Update the group's data
         $update_group_qry = "UPDATE groups 
-                              SET group_name = '$group_name', 
-                                  group_category = '$group_category'
+                              SET group_name = '$group_name'                                  
                               WHERE group_id = '$group_id'";
 
         if (mysqli_query($cn, $update_group_qry)) {
@@ -90,20 +88,14 @@ if (isset($_POST['update-group-btn'])) {
                                                     </div>
                                                 </div> <!-- /col -->
                                                 <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>Group Category:</label>
-                                                        <input type="text" placeholder="Enter here..." class="form-control" required="" name="group_category" value="<?= htmlspecialchars($group_data['group_category']); ?>">
-                                                        <div class="invalid-feedback">
-                                                            What's your Group Category..?
-                                                        </div>
+                                                    <div class="d-grid pt-2">
+                                                        <button type="submit" class="btn btn-primary w-75 mt-4" name='update-group-btn'><i class='fa fas fa-save'></i> Save & Update</button>
+
                                                     </div>
                                                 </div> <!-- /col -->
                                             </div> <!-- /row -->
                                         </div>
-                                        <div class="card-footer text-right">
-                                            <button type="submit" class="btn btn-primary" name='update-group-btn'><i class='fa fas fa-save'></i> Save & Update</button>
-                                            <a href="view-groups.php" class="btn btn-secondary">Cancel</a>
-                                        </div>
+
                                     </form>
                                 </div>
                             </div>
