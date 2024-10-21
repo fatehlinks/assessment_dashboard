@@ -7,9 +7,8 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
 }
 
 // Fetch groups from the database
-$groups_query = "SELECT * FROM groups WHERE group_status = 1";
-$groups_result = mysqli_query($cn, $groups_query);
-$groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
+$select_groups = "SELECT * FROM groups WHERE group_status = 1"; // Only fetch active groups
+$select_groups_run = mysqli_query($cn, $select_groups);
 
 ?>
 
@@ -203,23 +202,13 @@ $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Group<span class="text-danger">*</span> :</label>
-                                                        <select class="form-control select2" id="group-select" required="" name="student_group">
+                                                        <select class="form-control select2" id='group-select' required="" name="student_group">
                                                             <option selected disabled value="">-- Choose --</option>
                                                             <?php
-                                                            // Initialize an array to track unique group names
-                                                            $uniqueGroupNames = [];
-
-                                                            // Iterate through the groups
-                                                            foreach ($groups as $group):
-                                                                // Check if the group name is already in the array
-                                                                if (!in_array($group['group_name'], $uniqueGroupNames)):
-                                                                    // If it's not, add it to the array and display the option
-                                                                    $uniqueGroupNames[] = $group['group_name'];
-                                                            ?>
-                                                                    <option value="<?= $group['group_id']; ?>"><?= $group['group_name']; ?></option>
-                                                            <?php
-                                                                endif;
-                                                            endforeach;
+                                                            // Loop through groups and add them as options in the select
+                                                            while ($group = mysqli_fetch_assoc($select_groups_run)) {
+                                                                echo "<option value='" . $group['group_id'] . "'>" . $group['group_name'] . "</option>";
+                                                            }
                                                             ?>
                                                         </select>
                                                         <div class="invalid-feedback">
@@ -235,7 +224,7 @@ $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>Group Category:</label>
+                                                        <label>Category:</label>
                                                         <select id="group-category" class="form-control select2" name="student_group_category" required>
                                                             <option selected disabled>-- Choose --</option>
                                                         </select>
@@ -277,6 +266,7 @@ $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
 
 <?php include_once('include/js-sources.html'); ?>
 
+
 <!-- masking -->
 <script src="./assets/js/masking/jquery.inputmask.bundle.js"></script>
 <script>
@@ -287,30 +277,69 @@ $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
 <script>
     $(document).ready(function() {
         $('#group-select').change(function() {
-            var groupName = $('#group-select option:selected').text(); // Get the selected group name
-            $.ajax({
-                url: 'fetch-group-category.php',
-                method: 'POST',
-                data: {
-                    group_name: groupName // Send group name instead of ID
-                },
-                dataType: 'json',
-                primary: function(response) {
-                    // Clear the previous options
-                    $('#group-category').empty();
+            var groupID = $(this).val(); // Get the selected group ID
 
-                    // Add a default option
+            if (groupID) {
+                debugger;
+                $.post('fetch-group-category.php', {
+                    group_id: groupID
+                }, function(response) {
+
+                    // Clear previous options
+                    $('#group-category').empty();
                     $('#group-category').append('<option selected disabled>-- Choose --</option>');
 
-                    // Append new options from the response
-                    $.each(response.categories, function(index, category) {
-                        $('#group-category').append('<option value="' + category.group_category_id + '">' + category.group_category + '</option>');
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching group categories:', error);
-                }
-            });
+                    // Check if categories are available in response
+                    if (response.categories.length > 0) {
+                        // Populate group category options
+                        $.each(response.categories, function(index, category) {
+                            $('#group-category').append('<option value="' + category.category_id + '">' + category.category_name + '</option>');
+                        });
+                    } else {
+                        $('#group-category').append('<option selected disabled>No categories available</option>');
+                    }
+                }, );
+
+
+                // $.ajax({
+                //     url: 'fetch-group-category.php',
+                //     method: 'POST',
+                //     data: {
+                //         group_id: groupID
+                //     },
+                //     //dataType: 'json',
+
+
+                //     success: function(response) {
+                //         alert("asdf")
+                //         console.log('---', response)
+                //         // Clear previous options
+                //         $('#group-category').empty();
+                //         $('#group-category').append('<option selected disabled>-- Choose --</option>');
+
+                //         // Check if categories are available in response
+                //         if (response.categories.length > 0) {
+                //             // Populate group category options
+                //             $.each(response.categories, function(index, category) {
+                //                 $('#group-category').append('<option value="' + category.category_id + '">' + category.category_name + '</option>');
+                //             });
+                //         } else {
+                //             $('#group-category').append('<option selected disabled>No categories available</option>');
+                //         }
+                //     },
+
+                //     error: function(xhr, status, error) {
+                //         console.error('Error fetching group categories:', error);
+                //         alert('An error occurred while fetching group categories. Please try again.');
+                //     },
+                //     complete: function(xhr, status) {
+                //         console.log('Request complete:', status);
+                //     }
+                // });
+            } else {
+                $('#group-category').empty();
+                $('#group-category').append('<option selected disabled>-- Choose --</option>');
+            }
         });
     });
 </script>
