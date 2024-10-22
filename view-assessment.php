@@ -68,7 +68,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                         a.assessment_status,
                                                         g.group_id, 
                                                         g.group_name, 
-                                                        g.group_category, 
+                                                        c.category_name, 
                                                         g.group_status, 
                                                         s.subject_id, 
                                                         s.subject_name, 
@@ -78,9 +78,11 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                         assessments a
                                                         JOIN 
                                                         groups g ON a.assessment_group = g.group_id
-                                                        JOIN 
+                                                        JOIN                                                         
                                                         subjects s ON a.assessment_subject = s.subject_id
-                                                        WHERE 
+                                                        JOIN 
+                                                        category c ON a.assessment_group_category = c.category_id
+                                                         WHERE 
                                                         a.assessment_status != -1;
                                                         ";
 
@@ -92,7 +94,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                         $grade = $row['assessment_grade'];
                                                         $subject_name = $row['subject_name'];
                                                         $group_name = $row['group_name'];
-                                                        $group_category = $row['group_category'];
+                                                        $group_category = $row['category_name'];
                                                         $section = $row['assessment_section'];
                                                         $number_of_students = $row['assessment_number_of_students'];
                                                         $total_marks = $row['assessment_total_marks'];

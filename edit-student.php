@@ -356,49 +356,49 @@ if (isset($_POST['edit-student-btn'])) {
 <script>
     $(document).ready(function() {
         // Function to fetch and populate group categories
-        function fetchGroupCategories(groupName, selectedCategory) {
-            $.ajax({
-                url: 'fetch-group-category.php',
-                method: 'POST',
-                data: {
-                    group_name: groupName // Send group name instead of ID
-                },
-                dataType: 'json',
-                primary: function(response) {
-                    // Clear the previous options
-                    $('#group-category').empty();
+        function fetchGroupCategories(groupID, selectedCategory) {
+            $.post('fetch-group-category.php', {
+                    group_id: groupID // Pass group ID correctly
+                }, function(response) {
 
-                    // Add a default option
+                    // Clear previous options
+                    $('#group-category').empty();
                     $('#group-category').append('<option selected disabled>-- Choose --</option>');
 
-                    // Append new options from the response
-                    $.each(response.categories, function(index, category) {
-                        var selected = category.group_category_id == selectedCategory ? 'selected' : '';
-                        $('#group-category').append('<option value="' + category.group_category_id + '" ' + selected + '>' + category.group_category + '</option>');
-                    });
-                },
-                error: function(xhr, status, error) {
+                    // Check if response contains categories and it's not empty
+                    if (response && response.categories && response.categories.length > 0) {
+                        // Populate group category options
+                        $.each(response.categories, function(index, category) {
+                            var selected = category.category_id == selectedCategory ? 'selected' : '';
+                            $('#group-category').append('<option value="' + category.category_id + '" ' + selected + '>' + category.category_name + '</option>');
+                        });
+                    } else {
+                        // If no categories are available
+                        $('#group-category').append('<option selected disabled>No categories available</option>');
+                    }
+                }, 'json') // Ensure you're receiving the response as JSON
+                .fail(function(xhr, status, error) {
                     console.error('Error fetching group categories:', error);
-                }
-            });
+                });
         }
 
         // On page load, fetch categories for the selected group
-        var initialGroupId = '<?= $student['student_group']; ?>'; // Get the student's current group ID
-        var initialGroupName = $('#group-select option:selected').text(); // Get the initially selected group name
-        var selectedCategory = "<?= $student['student_group_category']; ?>"; // Get the student's current group category
+        var initialGroupID = '<?= $student['student_group']; ?>'; // Get the student's current group ID
+        var selectedCategory = '<?= $student['student_group_category']; ?>'; // Get the student's current group category
 
-        if (initialGroupName) {
-            fetchGroupCategories(initialGroupName, selectedCategory); // Fetch categories with pre-selected category
+        if (initialGroupID) {
+            fetchGroupCategories(initialGroupID, selectedCategory); // Fetch categories with pre-selected category
         }
 
         // Fetch categories when the group is changed
         $('#group-select').change(function() {
-            var groupName = $('#group-select option:selected').text(); // Get the selected group name
-            fetchGroupCategories(groupName, null); // Fetch without pre-selecting a category
+            var groupID = $('#group-select').val(); // Get the selected group ID from the value of the option
+            fetchGroupCategories(groupID, null); // Fetch without pre-selecting a category
         });
     });
 </script>
+
+
 
 <?php if (!empty($displayprimarySweetAlert)): ?>
     <script>

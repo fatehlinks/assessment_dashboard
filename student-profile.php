@@ -17,10 +17,10 @@
     // Fetch student data
     $query = "SELECT students.*, 
        g1.group_name, 
-       g2.group_category
+       c1.category_name
         FROM students 
         JOIN groups AS g1 ON students.student_group = g1.group_id
-        JOIN groups AS g2 ON students.student_group_category = g2.group_id
+        JOIN category AS c1 ON students.student_group_category = c1.category_id
         WHERE students.student_id = ? 
           AND students.student_status != -1";
     $stmt = $cn->prepare($query);
@@ -38,7 +38,7 @@
       $student_dob = date("d-M-Y", strtotime($student['student_dob']));
 
       $student_group = $student['group_name'];
-      $student_group_category = $student['group_category'];
+      $student_group_category = $student['category_name'];
       $student_section = $student['student_section'];
       // Add other student data as needed
     } else {

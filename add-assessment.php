@@ -55,12 +55,13 @@ $subjectsResult = mysqli_query($cn, $query);
 
                                                 if ($result->num_rows > 0) {
                                                     $row = $result->fetch_assoc();
-                                                    $last_assessment_id = $row['assessment_id']; // Store the ID in a variable
+                                                    $last_assessment_id = (int)$row['assessment_id']; // Cast to an integer to ensure it's numeric
                                                 } else {
-                                                    $last_assessment_id = "N/A"; // Handle case where no ID is found
+                                                    $last_assessment_id = 0; // If no records exist, start from 0
                                                 }
                                                 ?>
                                                 <span class='badge badge-warning small'>Assessment No. : <?= $last_assessment_id + 1 ?></span>
+
                                             </div>
 
 
@@ -272,37 +273,7 @@ $subjectsResult = mysqli_query($cn, $query);
     $(":input").inputmask();
 </script>
 
-<!-- Fetch group category when group is selected -->
-<script>
-    $(document).ready(function() {
-        $('#group-select').change(function() {
-            var groupName = $('#group-select option:selected').text(); // Get the selected group name
-            $.ajax({
-                url: 'fetch-group-category.php',
-                method: 'POST',
-                data: {
-                    group_name: groupName // Send group name instead of ID
-                },
-                dataType: 'json',
-                primary: function(response) {
-                    // Clear the previous options
-                    $('#group-category').empty();
 
-                    // Add a default option
-                    $('#group-category').append('<option selected disabled>-- Choose --</option>');
-
-                    // Append new options from the response
-                    $.each(response.categories, function(index, category) {
-                        $('#group-category').append('<option value="' + category.group_category_id + '">' + category.group_category + '</option>');
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching group categories:', error);
-                }
-            });
-        });
-    });
-</script>
 
 <?php if (!empty($displayprimarySweetAlert)): ?>
     <script>
@@ -334,41 +305,69 @@ $subjectsResult = mysqli_query($cn, $query);
 
 <script>
     $(document).ready(function() {
-        // Function to fetch student count
+        $('#group-select').change(function() {
+            var groupID = $(this).val(); // Get the selected group ID
+
+            if (groupID) {
+                debugger;
+                $.post('fetch-group-category.php', {
+                    group_id: groupID
+                }, function(response) {
+
+                    // Clear previous options
+                    $('#group-category').empty();
+                    $('#group-category').append('<option selected disabled>-- Choose --</option>');
+
+                    // Check if categories are available in response
+                    if (response.categories.length > 0) {
+                        // Populate group category options
+                        $.each(response.categories, function(index, category) {
+                            $('#group-category').append('<option value="' + category.category_id + '">' + category.category_name + '</option>');
+                        });
+                    } else {
+                        $('#group-category').append('<option selected disabled>No categories available</option>');
+                    }
+                }, );
+
+
+            } else {
+                $('#group-category').empty();
+                $('#group-category').append('<option selected disabled>-- Choose --</option>');
+            }
+        });
+
+
+
+
+        // Function to fetch the student count based on grade, group, category, and section
         function fetchStudentCount() {
-            var grade = $('select[name="assessmt_grade"]').val();
-            var group = $('select[name="assessmt_group"]').val();
-            var groupCategory = $('select[name="assessmt_group_category"]').val();
-            var section = $('select[name="assessmt_section"]').val();
+            var grade = $('[name="assessmt_grade"]').val();
+            var group = $('#group-select').val();
+            var groupCategory = $('#group-category').val();
+            var section = $('[name="assessmt_section"]').val();
 
             if (grade && group && groupCategory && section) {
-                $.ajax({
-                    url: 'fetch-student-count.php',
-                    method: 'POST',
-                    data: {
-                        grade: grade,
-                        group: group,
-                        group_category: groupCategory,
-                        section: section
-                    },
-                    dataType: 'json',
-                    primary: function(response) {
-                        if (response.student_count) {
-                            $('input[name="assessmt_number_of_students"]').val(response.student_count);
-                        } else {
-                            $('input[name="assessmt_number_of_students"]').val(0);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching student count:', error);
+                $.post('fetch-student-count.php', {
+                    grade: grade,
+                    group: group,
+                    group_category: groupCategory,
+                    section: section
+                }, function(response) {
+                    if (response.student_count) {
+                        $('[name="assessmt_number_of_students"]').val(response.student_count); // Update the number of students
+                    } else {
+                        alert('Error: ' + response.error); // Handle errors
                     }
-                });
+                }, 'json');
+            } else {
+                $('[name="assessmt_number_of_students"]').val(''); // Clear the field if inputs are incomplete
             }
         }
 
-        // Event listeners for dropdown changes
-        $('select[name="assessmt_grade"], select[name="assessmt_group"], select[name="assessmt_group_category"], select[name="assessmt_section"]').change(function() {
+        // Call the fetch function when any relevant field changes
+        $('[name="assessmt_grade"], #group-select, #group-category, [name="assessmt_section"]').change(function() {
             fetchStudentCount();
         });
+
     });
 </script>

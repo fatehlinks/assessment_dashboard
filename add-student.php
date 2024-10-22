@@ -301,41 +301,6 @@ $select_groups_run = mysqli_query($cn, $select_groups);
                 }, );
 
 
-                // $.ajax({
-                //     url: 'fetch-group-category.php',
-                //     method: 'POST',
-                //     data: {
-                //         group_id: groupID
-                //     },
-                //     //dataType: 'json',
-
-
-                //     success: function(response) {
-                //         alert("asdf")
-                //         console.log('---', response)
-                //         // Clear previous options
-                //         $('#group-category').empty();
-                //         $('#group-category').append('<option selected disabled>-- Choose --</option>');
-
-                //         // Check if categories are available in response
-                //         if (response.categories.length > 0) {
-                //             // Populate group category options
-                //             $.each(response.categories, function(index, category) {
-                //                 $('#group-category').append('<option value="' + category.category_id + '">' + category.category_name + '</option>');
-                //             });
-                //         } else {
-                //             $('#group-category').append('<option selected disabled>No categories available</option>');
-                //         }
-                //     },
-
-                //     error: function(xhr, status, error) {
-                //         console.error('Error fetching group categories:', error);
-                //         alert('An error occurred while fetching group categories. Please try again.');
-                //     },
-                //     complete: function(xhr, status) {
-                //         console.log('Request complete:', status);
-                //     }
-                // });
             } else {
                 $('#group-category').empty();
                 $('#group-category').append('<option selected disabled>-- Choose --</option>');
