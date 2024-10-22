@@ -40,6 +40,7 @@
       $student_group = $student['group_name'];
       $student_group_category = $student['category_name'];
       $student_section = $student['student_section'];
+      $student_grade = $student['student_grade'];
       // Add other student data as needed
     } else {
       // Handle case where student is not found
@@ -72,12 +73,21 @@
               <div class="invoice-print">
                 <div class="row">
                   <div class="col-lg-12">
-                    <div class="invoice-title">
-                      <h2> <img src="./assets/img/tef-logo.png" alt="tef logo">
-                      </h2>
-                      <div class="invoice-number">Reg # : <?= $student['student_reg_id']; ?></div>
+
+                    <!-- Logo and Id Div -->
+                    <div class="row align-items-center px-2">
+                      <div class="col-md-6">
+                        <h4> <img src="./assets/img/tef-logo.png" alt="tef logo"></h4>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="invoice-number">
+                          <h4 class="text-right"> Reg # : <?= $student['student_reg_id']; ?></h4>
+                        </div>
+                      </div>
                     </div>
+
                     <hr>
+
                     <div class="row">
                       <div class="col-md-6">
                         <address>
@@ -91,6 +101,7 @@
                           <!-- Add more student fields as necessary -->
                         </address>
                       </div>
+
                       <div class="col-md-6 text-md-right">
                         <address>
                           <h5 class="mb-2">Contact Details :</h5>
@@ -112,6 +123,7 @@
                             <p class="m-0"> <strong>Group :</strong> <?php echo $student_group; ?></p>
                             <p class="m-0"><strong>Category :</strong> <?php echo $student_group_category; ?></p>
                             <p class="m-0"> <strong>Section :</strong> <?php echo $student_section; ?></p>
+                            <p class="m-0"> <strong>Grade :</strong> <?php echo $student_grade; ?></p>
                           </div>
                           <!-- Add more student fields as necessary -->
                         </address>
@@ -125,6 +137,7 @@
                     </div>
                   </div>
                 </div>
+
                 <div class="row mt-4">
                   <div class="col-md-12">
                     <div class="section-title">Assessment Summary</div>
@@ -180,9 +193,14 @@
   <?php include_once('include/js-sources.html'); ?>
 
   <script>
-    // Function to print the invoice
     document.getElementById('print-button').onclick = function() {
-      window.print();
+      var invoiceContent = document.getElementById('invoice').innerHTML; // Get the invoice div content
+      var originalContent = document.body.innerHTML; // Save the original page content
+
+      document.body.innerHTML = invoiceContent; // Replace body content with invoice content
+      window.print(); // Trigger print
+
+      document.body.innerHTML = originalContent; // Restore the original page content after printing
     };
   </script>
 </body>
