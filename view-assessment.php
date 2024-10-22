@@ -32,7 +32,6 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                 <div class="card">
                                     <div class="card-header">
                                         <h4><i data-feather="eye"></i> All Assessments</h4>
-
                                     </div>
                                     <div class="card-body p-2">
                                         <div class="table-responsive">
@@ -73,18 +72,21 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                         s.subject_id, 
                                                         s.subject_name, 
                                                         s.subject_grade, 
-                                                        s.subject_status
+                                                        s.subject_status,
+                                                        m.marking_status
                                                         FROM 
                                                         assessments a
                                                         JOIN 
                                                         groups g ON a.assessment_group = g.group_id
-                                                        JOIN                                                         
+                                                        JOIN                                                          
                                                         subjects s ON a.assessment_subject = s.subject_id
                                                         JOIN 
                                                         category c ON a.assessment_group_category = c.category_id
-                                                         WHERE 
+                                                        LEFT JOIN
+                                                        marking m ON a.assessment_id = m.marking_assessment_id
+                                                        WHERE 
                                                         a.assessment_status != -1;
-                                                        ";
+                                                    ";
 
                                                     $select_assessment_data_run = mysqli_query($cn, $select_assessment_data);
 
@@ -100,6 +102,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                         $total_marks = $row['assessment_total_marks'];
                                                         $assessment_deadline = date("d-M-Y", strtotime($row['assessment_deadline']));
                                                         $assessment_status = $row['assessment_status'];
+                                                        $marking_status = $row['marking_status'];
 
                                                         if ($assessment_status == 2) {
                                                             $assessment_status = "<b class='text-info'>Completed</b>";
@@ -126,6 +129,9 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                                         Action
                                                                     </button>
                                                                     <div class="dropdown-menu">
+                                                                        <?php if ($marking_status != 1): ?>
+                                                                            <a class="dropdown-item" href="mark-assessment.php?id=<?= $assessment_id; ?>"><i class='fa fa-check-circle'></i> Marking</a>
+                                                                        <?php endif; ?>
                                                                         <a class="dropdown-item" href="complete-assessment.php?id=<?= $assessment_id; ?>"><i class='fa fa-check-circle'></i> Completed</a>
                                                                         <a class="dropdown-item" href="delete-assessment.php?id=<?= $assessment_id; ?>"><i class='fa fa-trash'></i> Delete</a>
                                                                     </div>

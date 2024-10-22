@@ -185,3 +185,17 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
         });
     </script>
 <?php endif; ?>
+
+<?php if (!empty($_SESSION['error_sweetalert_displayed'])): ?>
+    <script>
+        $(document).ready(function() {
+            swal({
+                title: "Error",
+                text: "<?= $_SESSION['error_message']; ?>",
+                icon: "error",
+                button: "OK"
+            });
+        });
+    </script>
+    <?php unset($_SESSION['error_sweetalert_displayed']); ?>
+<?php endif; ?>

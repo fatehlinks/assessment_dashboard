@@ -74,7 +74,7 @@ $total_complete_assessments = mysqli_fetch_assoc($total_complete_assessments_res
               <div class="row ">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                   <div class="card-content">
-                    <h5 class="font-15">Active AS</h5>
+                    <h5 class="font-15">Active</h5>
                     <h2 class="mb-3 font-20 ml-2"><?php echo $total_active_assessments; ?></h2>
                   </div>
                 </div>
@@ -96,7 +96,7 @@ $total_complete_assessments = mysqli_fetch_assoc($total_complete_assessments_res
               <div class="row ">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                   <div class="card-content">
-                    <h5 class="font-15">Complete AS</h5>
+                    <h5 class="font-15">Complete</h5>
                     <h2 class="mb-3 font-20 ml-2"><?php echo $total_complete_assessments; ?></h2>
                   </div>
                 </div>
