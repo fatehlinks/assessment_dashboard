@@ -76,21 +76,19 @@
 
                     <!-- Logo and Id Div -->
                     <div class="row align-items-center px-2">
-                      <div class="col-md-6">
+                      <div class="col-sm-6">
                         <h4> <img src="./assets/img/tef-logo.png" alt="tef logo"></h4>
                       </div>
-                      <div class="col-md-6">
-                        <div class="invoice-number">
-                          <h4 class="text-right"> Reg # : <?= $student['student_reg_id']; ?></h4>
-                        </div>
+                      <div class="col-sm-6">
+                        <h4 class="text-right"> Reg # : <?= $student['student_reg_id']; ?></h4>
                       </div>
                     </div>
 
                     <hr>
 
                     <div class="row">
-                      <div class="col-md-6">
-                        <address>
+                      <div class="col-sm-6 ">
+                        <div>
                           <h5 class="mb-2">Studnet Details :</h5>
                           <div class="d-flex flex-column">
                             <p class="m-0"> <strong>Name :</strong> <?php echo $student_name; ?></p>
@@ -99,11 +97,11 @@
                             <p class="m-0"> <strong>DOB :</strong> <?php echo $student_dob; ?></p>
                           </div>
                           <!-- Add more student fields as necessary -->
-                        </address>
+                        </div>
                       </div>
 
-                      <div class="col-md-6 text-md-right">
-                        <address>
+                      <div class="col-sm-6 text-right">
+                        <div>
                           <h5 class="mb-2">Contact Details :</h5>
                           <div class="d-flex flex-column">
                             <p class="m-0"> <strong>Mobile :</strong> <?php echo $student_mobile; ?></p>
@@ -111,13 +109,13 @@
 
                           </div>
                           <!-- Add shipping address or additional details if applicable -->
-                        </address>
+                        </div>
                       </div>
                     </div>
 
                     <div class="row mt-4">
-                      <div class="col-md-6">
-                        <address>
+                      <div class="col-sm-6">
+                        <div>
                           <h5 class="mb-2">Program :</h5>
                           <div class="d-flex flex-column gap-0">
                             <p class="m-0"> <strong>Group :</strong> <?php echo $student_group; ?></p>
@@ -126,9 +124,9 @@
                             <p class="m-0"> <strong>Grade :</strong> <?php echo $student_grade; ?></p>
                           </div>
                           <!-- Add more student fields as necessary -->
-                        </address>
+                        </div>
                       </div>
-                      <div class="col-md-6 text-md-right">
+                      <div class="col-sm-6">
                         <address>
                           <!-- <strong>Order Date:</strong><br>
                           June 26, 2018<br><br> -->
