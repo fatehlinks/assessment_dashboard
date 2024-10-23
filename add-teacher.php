@@ -8,7 +8,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
 
 // Fetch subjects from the database
 include('config.php'); // Ensure you have the connection file included
-$query = "SELECT subject_id, subject_name FROM subjects";
+$query = "SELECT subject_id, subject_name FROM subjects WHERE subject_status = 1";
 $subjectsResult = mysqli_query($cn, $query);
 
 ?>

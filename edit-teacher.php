@@ -28,12 +28,16 @@ if (isset($_POST['update-teacher-btn'])) {
     $teacher_cnic = mysqli_real_escape_string($cn, $_POST['teacher_cnic']);
     $teacher_mobile = mysqli_real_escape_string($cn, $_POST['teacher_mobile']);
     $teacher_subject = mysqli_real_escape_string($cn, $_POST['teacher_subject']);
+    $teacher_dob = mysqli_real_escape_string($cn, $_POST['teacher_dob']);
+    $teacher_joining_date = mysqli_real_escape_string($cn, $_POST['teacher_joining_date']);
 
     // Update the teacher's data
     $update_teacher_qry = "UPDATE teachers 
                            SET teacher_name = '$teacher_name', 
                                teacher_cnic = '$teacher_cnic', 
                                teacher_mobile = '$teacher_mobile', 
+                               teacher_dob = '$teacher_dob', 
+                               teacher_joining_date = '$teacher_joining_date', 
                                teacher_subject = '$teacher_subject'
                            WHERE teacher_id = '$teacher_id'";
 
@@ -91,6 +95,28 @@ if (isset($_POST['update-teacher-btn'])) {
                                                     </div>
                                                 </div>
                                             </div>
+
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Joining Date<span class="text-danger">*</span> :</label>
+                                                        <input type="date" class="form-control" required="" value="<?= $teacher_data['teacher_joining_date']; ?>" name="teacher_joining_date">
+                                                        <div class="invalid-feedback">
+                                                            What's the teacher's joining date?
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- /col -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Date of Birth</label>
+                                                        <input type="date" class="form-control" required="" value="<?= $teacher_data['teacher_dob']; ?>" name="teacher_dob">
+                                                        <div class="invalid-feedback">
+                                                            What's the teacher's date of birth?
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- /col -->
+                                            </div> <!-- /row -->
 
                                             <div class="row">
                                                 <div class="col-md-6">

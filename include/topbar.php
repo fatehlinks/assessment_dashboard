@@ -1,8 +1,41 @@
 <?php
 
+// Function to insert birthday notifications
+function insertBirthdayNotifications($cn)
+{
+  $today = date('m-d'); // Format: MM-DD
+  $birthday_insert_query = "INSERT INTO birthday_notifications (birthday_teacher_id, birthday_notification_status)
+                              SELECT teacher_id, 1 
+                              FROM teachers 
+                              WHERE DATE_FORMAT(teacher_dob, '%m-%d') = '$today'
+                              AND teacher_id NOT IN (SELECT birthday_teacher_id FROM birthday_notifications)";
+  mysqli_query($cn, $birthday_insert_query);
+}
+
+// Function to insert deadline notifications
+function insertDeadlineNotifications($cn)
+{
+  $today = date('Y-m-d');
+  $deadline_insert_query = "INSERT INTO deadline_notifications (deadline_assessment_id, deadline_notification_status)
+                              SELECT assessment_id, 1 
+                              FROM assessments 
+                              WHERE assessment_deadline BETWEEN DATE_ADD('$today', INTERVAL 1 DAY) 
+                              AND DATE_ADD('$today', INTERVAL 3 DAY) 
+                              AND assessment_status = 1 
+                              AND assessment_id NOT IN (SELECT deadline_assessment_id FROM deadline_notifications)";
+  mysqli_query($cn, $deadline_insert_query);
+}
+
+// Run the insert functions
+insertBirthdayNotifications($cn);
+insertDeadlineNotifications($cn);
+
 // Check for teacher birthdays
-$today = date('m-d'); // Format: MM-DD
-$birthday_query = "SELECT * FROM teachers WHERE DATE_FORMAT(teacher_dob, '%m-%d') = '$today' AND teacher_status = 1";
+$today = date('m-d');
+$birthday_query = "SELECT * FROM teachers 
+                   JOIN birthday_notifications 
+                   ON teachers.teacher_id = birthday_notifications.birthday_teacher_id 
+                   WHERE DATE_FORMAT(teacher_dob, '%m-%d') = '$today'";
 $birthday_result = mysqli_query($cn, $birthday_query);
 
 $birthday_teachers = [];
@@ -17,11 +50,14 @@ if ($birthday_result && mysqli_num_rows($birthday_result) > 0) {
 
 // Fetch upcoming assessment deadlines
 $today = date('Y-m-d');
-$upcoming_deadline_query = "SELECT assessment_id, assessment_subject, assessment_deadline 
-                            FROM assessments 
-                            WHERE assessment_deadline >= '$today' 
-                            AND assessment_status = 1 
-                            ORDER BY assessment_deadline ASC";
+$upcoming_deadline_query = "SELECT a.assessment_id, a.assessment_subject, a.assessment_deadline 
+                            FROM assessments a
+                            JOIN deadline_notifications d
+                            ON a.assessment_id = d.deadline_assessment_id
+                            WHERE a.assessment_deadline >= '$today' 
+                            AND a.assessment_status = 1 
+                            AND d.deadline_notification_status = 1
+                            ORDER BY a.assessment_deadline ASC";
 $deadline_result = mysqli_query($cn, $upcoming_deadline_query);
 
 $upcoming_assessments = [];
@@ -35,23 +71,33 @@ if ($deadline_result && mysqli_num_rows($deadline_result) > 0) {
   }
 }
 
-// Check if any birthdays or assessments are marked as read
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (isset($_POST['mark_birthday_read'])) {
-    // Clear all birthday notifications
-    $birthday_teachers = []; // Clear all birthday notifications
+    $update_birthday_status_query = "UPDATE birthday_notifications SET birthday_notification_status = 0 
+                                          WHERE birthday_notification_status = 1";
+    $update_result = mysqli_query($cn, $update_birthday_status_query);
+
+    if (!$update_result) {
+      die("SQL Error while marking birthdays as read: " . mysqli_error($cn));
+    }
+
+    $birthday_teachers = []; // Clear the local array to stop showing notifications
   }
 
+  // Update the assessment notifications status in the database
   if (isset($_POST['mark_assessment_read'])) {
-    // Clear all assessment notifications
-    $upcoming_assessments = []; // Clear all assessment notifications
+    $update_deadline_status_query = "UPDATE deadline_notifications SET deadline_notification_status = 0 
+                                          WHERE deadline_notification_status = 1";
+    $update_result = mysqli_query($cn, $update_deadline_status_query);
+
+    if (!$update_result) {
+      die("SQL Error while marking assessments as read: " . mysqli_error($cn));
+    }
+
+    $upcoming_assessments = []; // Clear the local array to stop showing notifications
   }
 }
 ?>
-
-
-
-
 
 <nav class="navbar navbar-expand-lg main-navbar sticky">
   <div class="form-inline mr-auto">
@@ -86,15 +132,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="dropdown-header">Birthdays Today</div>
           <div class="dropdown-list-content dropdown-list-icons bg-white">
             <?php foreach ($birthday_teachers as $teacher): ?>
-              <a href="#" class="dropdown-item dropdown-item-unread">
-                <span class="dropdown-item-icon bg-light text-info">
-                  <i class="fas fa-birthday-cake"></i>
-                </span>
-                <span class="dropdown-item-desc">
-                  <?= $teacher['teacher_name']; ?>
-                  <span class="time">Today</span>
-                </span>
-              </a>
+              <form method="POST" style="display: flex; align-items: center;">
+                <input type="hidden" name="teacher_id" value="<?= $teacher['teacher_id']; ?>">
+                <a href="#" class="dropdown-item dropdown-item-unread">
+                  <span class="dropdown-item-icon bg-light text-info">
+                    <i class="fas fa-birthday-cake"></i>
+                  </span>
+                  <span class="dropdown-item-desc">
+                    <?= $teacher['teacher_name']; ?>
+                    <span class="time">Today</span>
+                  </span>
+                </a>
+              </form>
             <?php endforeach; ?>
           </div>
           <div class="dropdown-footer text-center">
@@ -117,15 +166,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="dropdown-header">Upcoming Assessment Deadlines</div>
           <div class="dropdown-list-content dropdown-list-icons">
             <?php foreach ($upcoming_assessments as $assessment): ?>
-              <a href="#" class="dropdown-item">
-                <span class="dropdown-item-icon bg-warning text-white">
-                  <i class="fas fa-exclamation-circle"></i>
-                </span>
-                <span class="dropdown-item-desc">
-                  Assessment - <?= $assessment['subject']; ?>
-                  <span class="time">Deadline <?= date('d M Y', strtotime($assessment['deadline'])); ?></span>
-                </span>
-              </a>
+              <form method="POST" style="display: flex; align-items: center;">
+                <input type="hidden" name="assessment_id" value="<?= $assessment['assessment_id']; ?>">
+                <a href="#" class="dropdown-item">
+                  <span class="dropdown-item-icon bg-warning text-white">
+                    <i class="fas fa-exclamation-circle"></i>
+                  </span>
+                  <span class="dropdown-item-desc">
+                    Assessment - <?= $assessment['subject']; ?>
+                    <span class="time">Deadline <?= date('d M Y', strtotime($assessment['deadline'])); ?></span>
+                  </span>
+                </a>
+              </form>
             <?php endforeach; ?>
           </div>
           <div class="dropdown-footer text-center">
@@ -156,7 +208,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </li>
   </ul>
 </nav>
-
 
 <style>
   .badge-notification {

@@ -24,9 +24,9 @@
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="add-assessment.php">Add Assessment</a></li>
           <li><a class="nav-link" href="view-assessment.php">View Assessments</a></li>
+          <li><a class="nav-link" href="filter.php">Filter Result</a></li>
         </ul>
       </li>
-
 
       <li class="menu-header">Settings</li>
       <li class="dropdown">
