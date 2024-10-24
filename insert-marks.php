@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die('SQL Error: ' . mysqli_error($cn));
     }
 
-    $total_marks = 100;
+    $total_marks = $_POST["total_marks"];
     $marking_status = 1; // set status 1 
 
     // Concatenate student IDs and obtained marks into strings

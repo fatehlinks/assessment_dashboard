@@ -141,11 +141,12 @@ $assessments = mysqli_fetch_all($assessments_result, MYSQLI_ASSOC);
             s.student_id,
             s.student_name,
             m.marking_obtained_marks,
-            m.marking_total_marks
+            m.marking_total_marks,
+            m.marking_student_id
         FROM students s
         LEFT JOIN marking m ON s.student_id = m.marking_student_id 
             AND m.marking_assessment_id = '$filter_assessment_id'
-        WHERE 1=1"; // Placeholder to append conditions dynamically
+        WHERE marking_status = 1"; // Placeholder to append conditions dynamically
 
                     if ($filter_subject_grade) {
                         $query .= " AND s.student_grade = '$filter_subject_grade'";
@@ -190,20 +191,32 @@ $assessments = mysqli_fetch_all($assessments_result, MYSQLI_ASSOC);
                                     <tbody>";
 
                         // Loop through each student's data and display the marks
-                        while ($student = mysqli_fetch_assoc($result)) {
-                            // Get obtained marks, total marks, and calculate percentage
-                            $obtained_marks = $student['marking_obtained_marks'] !== null ? $student['marking_obtained_marks'] : 0;
-                            $total_marks = $student['marking_total_marks'] !== null ? $student['marking_total_marks'] : 1; // Avoid division by 0
-                            $percentage = ($total_marks > 0) ? ($obtained_marks / $total_marks) * 100 : 0;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            // Split both student IDs and obtained marks into arrays
+                            $studentIdsArray = explode(',', $row['marking_student_id'] ?? '');
+                            $obtainedMarksArray = explode(',', $row['marking_obtained_marks'] ?? '');
+                            $totalMarks = $row['marking_total_marks'] ?? 'N/A';
 
-                            echo "<tr>
-                <td>{$student['student_id']}</td>
-                <td>{$student['student_name']}</td>
-                <td>{$obtained_marks}</td>
-                <td>{$total_marks}</td>
-                <td>" . number_format($percentage, 2) . "%</td>
-              </tr>";
+                            // Ensure both arrays have the same length
+                            $maxLength = max(count($studentIdsArray), count($obtainedMarksArray));
+
+                            for ($index = 0; $index < $maxLength; $index++) {
+                                $studentId = $studentIdsArray[$index] ?? 'N/A';  // Handle missing student ID
+                                $obtainedMark = $obtainedMarksArray[$index] ?? 'N/A';  // Handle missing marks
+                                $percentage = ($obtainedMark / $totalMarks) * 100;
+
+
+                                echo "<tr>
+                        <td>{$studentId}</td>
+                        <td>{$row['student_name']}</td>
+                        <td>{$obtainedMark}</td>
+                        <td>{$totalMarks}</td>
+                        <td>{$percentage}%</td>
+                        
+                      </tr>";
+                            }
                         }
+
 
                         echo "                      </tbody>
                             </table>

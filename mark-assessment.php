@@ -111,7 +111,7 @@
                                                                             <input type="number" name="obtain_marks[]" class="form-control form-control-sm" required>
                                                                         </td>
                                                                         <td>
-                                                                            <input type="number" class="form-control form-control-sm" value="<?= htmlspecialchars($total_marks); ?>" readonly>
+                                                                            <input type="number" class="form-control form-control-sm" name="total_marks" value="<?= htmlspecialchars($total_marks); ?>" readonly>
                                                                         </td>
                                                                     </tr>
                                                             <?php
