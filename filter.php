@@ -235,7 +235,8 @@ $assessments = mysqli_fetch_all($assessments_result, MYSQLI_ASSOC);
         </div>
     </section>";
                     } else {
-                        echo "<p>No matching records found.</p>";
+                        $_SESSION['error_sweetalert_displayed'] = true;
+                        $_SESSION['error_message'] = "Result not found.";
                     }
                 }
                 ?>
