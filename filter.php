@@ -146,7 +146,7 @@ $assessments = mysqli_fetch_all($assessments_result, MYSQLI_ASSOC);
         FROM students s
         LEFT JOIN marking m ON s.student_id = m.marking_student_id 
             AND m.marking_assessment_id = '$filter_assessment_id'
-        WHERE marking_status = 1"; // Placeholder to append conditions dynamically
+        WHERE m.marking_status = 1"; // Placeholder to append conditions dynamically
 
                     if ($filter_subject_grade) {
                         $query .= " AND s.student_grade = '$filter_subject_grade'";
@@ -203,21 +203,29 @@ $assessments = mysqli_fetch_all($assessments_result, MYSQLI_ASSOC);
                             for ($index = 0; $index < $maxLength; $index++) {
                                 $studentId = $studentIdsArray[$index] ?? 'N/A';  // Handle missing student ID
                                 $obtainedMark = $obtainedMarksArray[$index] ?? 'N/A';  // Handle missing marks
-                                $percentage = ($obtainedMark / $totalMarks) * 100;
+                                $percentage = ($totalMarks > 0) ? ($obtainedMark / $totalMarks) * 100 : 0;
 
 
-                                echo "<tr>
+                                // Fetch the correct student name based on student ID
+                                $get_student_name_qry = "SELECT student_name FROM students WHERE student_id = $studentId";
+                                $get_student_name_qry_run = mysqli_query($cn, $get_student_name_qry);
+
+                                if (mysqli_num_rows($get_student_name_qry_run) > 0) {
+                                    while ($get_student_name = mysqli_fetch_assoc($get_student_name_qry_run)) {
+
+                                        $studentName = $get_student_name['student_name'];
+
+                                        echo "<tr>
                         <td>{$studentId}</td>
-                        <td>{$row['student_name']}</td>
+                        <td>{$studentName}</td>
                         <td>{$obtainedMark}</td>
                         <td>{$totalMarks}</td>
                         <td>{$percentage}%</td>
-                        
                       </tr>";
+                                    }
+                                }
                             }
                         }
-
-
                         echo "                      </tbody>
                             </table>
                         </div>
@@ -231,6 +239,7 @@ $assessments = mysqli_fetch_all($assessments_result, MYSQLI_ASSOC);
                     }
                 }
                 ?>
+
 
 
 
