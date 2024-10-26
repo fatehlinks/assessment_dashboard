@@ -132,7 +132,9 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                                         <?php if ($marking_status != 1): ?>
                                                                             <a class="dropdown-item" href="mark-assessment.php?id=<?= $assessment_id; ?>"><i class='fa fa-check-circle'></i> Marking</a>
                                                                         <?php endif; ?>
-                                                                        <a class="dropdown-item" href="complete-assessment.php?id=<?= $assessment_id; ?>"><i class='fa fa-check-circle'></i> Completed</a>
+                                                                        <?php if ($marking_status == 1): ?>
+                                                                            <a class="dropdown-item" href="complete-assessment.php?id=<?= $assessment_id; ?>"><i class='fa fa-check-circle'></i> Completed</a>
+                                                                        <?php endif; ?>
                                                                         <a class="dropdown-item" href="delete-assessment.php?id=<?= $assessment_id; ?>"><i class='fa fa-trash'></i> Delete</a>
                                                                     </div>
                                                                 </div>

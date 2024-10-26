@@ -165,8 +165,6 @@
                         </div>
                         </div>
                       </div>";
-                } else {
-                  echo "<p>No assessments found for this student.</p>";
                 }
                 ?>
               </div>

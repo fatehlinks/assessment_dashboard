@@ -10,7 +10,7 @@ $birthday_count = mysqli_num_rows($birthday_result);
 $deadline_query = "SELECT assessment_id,  assessment_deadline 
                    FROM assessments 
                    WHERE DATE(assessment_deadline) >= '$today' 
-                   AND DATE(assessment_deadline) <= DATE_ADD('$today', INTERVAL 7 DAY) AND assessment_read_flag = 0";
+                   AND DATE(assessment_deadline) <= DATE_ADD('$today', INTERVAL 7 DAY) AND assessment_read_flag = 0 AND assessment_status != 2";
 $deadline_result = mysqli_query($cn, $deadline_query);
 $deadline_count = mysqli_num_rows($deadline_result);
 
