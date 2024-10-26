@@ -118,14 +118,14 @@
                   echo "
                       <div class='row mt-4'>
                         <div class='col-12'>
-                        <div class='card p-3'>
+                        <div class='card shadow-none'>
                           <div class='card-header'>
-                            <h4>Assessment Summary</h4>
+                            <h4 class='m-0 mb-2'>Assessment Summary</h4>
                           </div>
                           <div class='table-responsive'>
                             <table class='table table-striped table-hover table-bordered text-center' style='width:100%;'>
                               
-                                <tr class='table-success'>
+                                <tr class='table-dark'>
                                   <th>Assessment No.</th>
                                   <th>Obtained Marks</th>
                                   <th>Total Marks</th>
