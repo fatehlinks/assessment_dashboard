@@ -6,12 +6,20 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
   unset($_SESSION['primary_sweetalert_displayed']);
 }
 
+
+// Fetch schools from the database
+$select_schools = "SELECT * FROM schools WHERE school_status = 1"; // Only fetch active groups
+$select_schools_run = mysqli_query($cn, $select_schools);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <title>Admin Profile</title>
+  <link rel="stylesheet" href="assets/bundles/select2/dist/css/select2.min.css" />
+
   <?php include_once('include/html-sources.html'); ?>
 </head>
 
@@ -73,7 +81,12 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                             <select class="form-control" required="" name="admin_role">
                               <option selected disabled value="">-- Choose --</option>
                               <option value='1'>Super admin</option>
-                              <option value='0'>Admin</option>
+                              <?php
+                              // Loop through groups and add them as options in the select
+                              while ($school = mysqli_fetch_assoc($select_schools_run)) {
+                                echo "<option value='" . $school['school_id'] . "'>" . $school['school_name'] . "</option>";
+                              }
+                              ?>
                             </select>
                             <div class="invalid-feedback">
                               Choose profile role
@@ -102,6 +115,8 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                             </div>
                           </div>
                         </div> <!-- /col -->
+
+
                       </div> <!-- /row -->
 
                     </div>
@@ -145,11 +160,18 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                             $admin_name = $row['admin_name'];
                             $admin_email = $row['admin_email'];
                             $admin_role = $row['admin_role'];
-                            if ($admin_role == 1) {
+                            if ($admin_role == 0) {
                               $admin_role = "Super admin";
                             } else {
-                              $admin_role = "Admin";
+
+                              $select_school_data = "SELECT * FROM schools WHERE school_id = $admin_role";
+                              $select_school_data_run = mysqli_query($cn, $select_school_data);
+                              while ($schools = mysqli_fetch_assoc($select_school_data_run)) {
+                                $school_name = $schools['school_name'];
+                                $admin_role = $school_name;
+                              }
                             }
+
                             $admin_username = $row['admin_username'];
                             $admin_recovery_email = $row['admin_recovery_email'];
                             $admin_status = $row['admin_status'];
@@ -180,7 +202,8 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                 </div>
                               </td>
                             </tr>
-                          <?php } ?>
+                          <?php
+                          } ?>
                         </tbody>
                       </table>
                     </div>
@@ -211,7 +234,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
     $(document).ready(function() {
       swal({
         title: "Congrats",
-        text: "Operation primaryfully completed.",
+        text: "Operation Successfully completed.",
         icon: "primary",
         button: "OK"
       });

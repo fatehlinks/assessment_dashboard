@@ -29,6 +29,11 @@
       </li>
 
       <li class="menu-header">Settings</li>
+
+      <li class="dropdown">
+        <a href="add-school.php" class="nav-link"><i data-feather="home"></i><span>School</span></a>
+      </li>
+
       <li class="dropdown">
         <a href="add-group.php" class="nav-link"><i data-feather="layers"></i><span>Group</span></a>
       </li>
@@ -36,9 +41,12 @@
         <a href="add-category.php" class="nav-link"><i data-feather="server"></i><span>Category</span></a>
       </li>
 
+
       <li class="dropdown">
         <a href="add-subject.php" class="nav-link"><i data-feather="book"></i><span>Subject</span></a>
       </li>
+
+
 
       <li class="dropdown">
         <a href="add-teacher.php" class="nav-link"><i data-feather="users"></i><span>Teacher</span></a>

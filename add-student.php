@@ -10,6 +10,11 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
 $select_groups = "SELECT * FROM groups WHERE group_status = 1"; // Only fetch active groups
 $select_groups_run = mysqli_query($cn, $select_groups);
 
+
+// Fetch schools from the database
+$select_schools = "SELECT * FROM schools WHERE school_status = 1"; // Only fetch active groups
+$select_schools_run = mysqli_query($cn, $select_schools);
+
 ?>
 
 <!DOCTYPE html>
@@ -234,7 +239,27 @@ $select_groups_run = mysqli_query($cn, $select_groups);
                                                     </div>
                                                 </div>
 
+
                                                 <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label>School<span class="text-danger">*</span> :</label>
+                                                        <select class="form-control select2" id='school-select' required="" name="student_school">
+                                                            <option selected disabled value="">-- Choose --</option>
+                                                            <?php
+                                                            // Loop through groups and add them as options in the select
+                                                            while ($school = mysqli_fetch_assoc($select_schools_run)) {
+                                                                echo "<option value='" . $school['school_id'] . "'>" . $school['school_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Select a school.
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- /col -->
+
+
+                                                <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Remarks: <small>(Optional)</small></label>
                                                         <input type="text" placeholder="Enter here..." class="form-control" name="student_remarks">
@@ -316,7 +341,7 @@ $select_groups_run = mysqli_query($cn, $select_groups);
         $(document).ready(function() {
             swal({
                 title: "Congrats",
-                text: "Operation primaryfully completed.",
+                text: "Operation successfully completed.",
                 icon: "primary",
                 button: "OK"
             });
