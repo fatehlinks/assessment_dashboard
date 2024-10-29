@@ -1,4 +1,4 @@
-<?php include('auth.php'); ?>
+<?php include('user-auth.php'); ?>
 <?php
 //Set a session variable to trigger the SweetAlert
 if (!empty($_SESSION['primary_sweetalert_displayed'])) {

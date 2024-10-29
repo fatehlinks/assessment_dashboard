@@ -1,4 +1,4 @@
-<?php include("auth.php") ?>
+<?php include('user-auth.php'); ?>
 <?php
 if (isset($_POST['add-category'])) {
     $category_name = mysqli_real_escape_string($cn, $_POST['category_name']);

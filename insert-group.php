@@ -1,4 +1,4 @@
-<?php include('auth.php'); ?>
+<?php include('user-auth.php'); ?>
 
 <?php
 // Add add group section

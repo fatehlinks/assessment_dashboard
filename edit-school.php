@@ -1,4 +1,4 @@
-<?php include('auth.php'); ?>
+<?php include('user-auth.php'); ?>
 
 <?php
 // Get school ID from query string

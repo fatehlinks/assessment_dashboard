@@ -28,36 +28,41 @@
         </ul>
       </li>
 
-      <li class="menu-header">Settings</li>
-
-      <li class="dropdown">
-        <a href="add-school.php" class="nav-link"><i data-feather="home"></i><span>School</span></a>
-      </li>
-
-      <li class="dropdown">
-        <a href="add-group.php" class="nav-link"><i data-feather="layers"></i><span>Group</span></a>
-      </li>
-      <li class="dropdown">
-        <a href="add-category.php" class="nav-link"><i data-feather="server"></i><span>Category</span></a>
-      </li>
+      <?php
 
 
-      <li class="dropdown">
-        <a href="add-subject.php" class="nav-link"><i data-feather="book"></i><span>Subject</span></a>
-      </li>
+      if ($admin_row['admin_role'] == 0) {
+
+        echo '<li class="menu-header">Settings</li>
+
+              <li class="dropdown">
+                  <a href="add-school.php" class="nav-link"><i data-feather="home"></i><span>School</span></a>
+              </li>
+
+              <li class="dropdown">
+                  <a href="add-group.php" class="nav-link"><i data-feather="layers"></i><span>Group</span></a>
+              </li>
+              
+              <li class="dropdown">
+                  <a href="add-category.php" class="nav-link"><i data-feather="server"></i><span>Category</span></a>
+              </li>
+
+              <li class="dropdown">
+                  <a href="add-subject.php" class="nav-link"><i data-feather="book"></i><span>Subject</span></a>
+              </li>
+
+              <li class="dropdown">
+                  <a href="add-teacher.php" class="nav-link"><i data-feather="users"></i><span>Teacher</span></a>
+              </li>
+
+              <li class="dropdown">
+                  <a href="admin-profile.php" class="nav-link"><i data-feather="user-plus"></i><span>Admin</span></a>
+              </li>';
+      }
+      ?>
 
 
 
-      <li class="dropdown">
-        <a href="add-teacher.php" class="nav-link"><i data-feather="users"></i><span>Teacher</span></a>
-      </li>
-
-
-
-
-      <li class="dropdown">
-        <a href="admin-profile.php" class="nav-link"><i data-feather="user-plus"></i><span>Admin</span></a>
-      </li>
 
     </ul>
   </aside>

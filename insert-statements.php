@@ -4,11 +4,12 @@
 if (isset($_POST['add-admin-profile-btn'])) {
     $admin_name = mysqli_real_escape_string($cn, $_POST['admin_name']);
     $admin_email = mysqli_real_escape_string($cn, $_POST['admin_email']);
-    $admin_passwrod = mysqli_real_escape_string($cn, $_POST['admin_passwrod']);
+    $admin_password = mysqli_real_escape_string($cn, $_POST['admin_passwrod']);
     $admin_role = $_POST['admin_role'];
     $admin_username = mysqli_real_escape_string($cn, $_POST['admin_username']);
     $admin_recovery_email = mysqli_real_escape_string($cn, $_POST['admin_recovery_email']);
     $admin_status = 1;
+
 
     // Check if the email already exists
     $check_email_qry = "SELECT * FROM admin WHERE admin_email = '$admin_email'";

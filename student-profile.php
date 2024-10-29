@@ -13,10 +13,11 @@
     $student_id = $_GET['id'];
 
     // Fetch student data
-    $query = "SELECT students.*, g1.group_name, c1.category_name
+    $query = "SELECT students.*, g1.group_name, c1.category_name , sc.school_name
               FROM students 
               JOIN groups AS g1 ON students.student_group = g1.group_id
               JOIN category AS c1 ON students.student_group_category = c1.category_id
+              JOIN schools AS sc ON students.student_school = sc.school_id
               WHERE students.student_id = $student_id AND students.student_status != -1";
     $result = mysqli_query($cn, $query);
 
@@ -32,6 +33,7 @@
       $student_group_category = $student['category_name'];
       $student_section = $student['student_section'];
       $student_grade = $student['student_grade'];
+      $student_school_name = $student['school_name'];
     } else {
       $student_name = "Not Found";
       $student_address = "";
@@ -95,6 +97,7 @@
                           <p><strong>Category :</strong> <?php echo $student_group_category; ?></p>
                           <p><strong>Section :</strong> <?php echo $student_section; ?></p>
                           <p><strong>Grade :</strong> <?php echo $student_grade; ?></p>
+                          <p><strong>Institue :</strong> <?php echo $student_school_name; ?></p>
                         </div>
                       </div>
                     </div>
