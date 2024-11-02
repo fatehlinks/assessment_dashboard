@@ -9,6 +9,7 @@ if (isset($_POST['add-assessment-btn'])) {
     $teacher_subject =  $_POST['teacher_subject'];
     $assessment_section =  $_POST['assessmt_section'];
     $assessment_group =  $_POST['assessmt_group'];
+    $assessment_school =  $_POST['assessment_school'];
     $assessment_group_category =  $_POST['assessmt_group_category'];
     $num_of_students = mysqli_real_escape_string($cn, $_POST['assessmt_number_of_students']);
     $total_marks = mysqli_real_escape_string($cn, $_POST['assessmt_total_marks']);
@@ -23,8 +24,8 @@ if (isset($_POST['add-assessment-btn'])) {
     } else {
 
         // Insert query
-        $insertQuery = "INSERT INTO assessments (assessment_date, assessment_grade, assessment_subject, assessment_section, assessment_group, assessment_group_category, assessment_number_of_students, assessment_total_marks, assessment_deadline , assessment_status) 
-                    VALUES ('$assessment_date', '$assessment_grade', '$teacher_subject', '$assessment_section', '$assessment_group', ' $assessment_group_category', '$num_of_students', '$total_marks' , '$assessment_deadline' , '$assessment_status')";
+        $insertQuery = "INSERT INTO assessments (assessment_date, assessment_grade, assessment_subject, assessment_section, assessment_group, assessment_group_category, assessment_number_of_students, assessment_total_marks, assessment_deadline , assessment_school_id  , assessment_status) 
+                    VALUES ('$assessment_date', '$assessment_grade', '$teacher_subject', '$assessment_section', '$assessment_group', ' $assessment_group_category', '$num_of_students', '$total_marks' , '$assessment_deadline' ,   '$assessment_school' ,'$assessment_status')";
 
         // Execute the query
         if (mysqli_query($cn, $insertQuery)) {

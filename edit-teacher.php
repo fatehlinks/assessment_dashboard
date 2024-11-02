@@ -22,12 +22,19 @@ if (isset($_GET['id'])) {
     exit();
 }
 
+
+// Fetch schools from the database
+$select_schools = "SELECT * FROM schools WHERE school_status = 1"; // Only fetch active groups
+$select_schools_run = mysqli_query($cn, $select_schools);
+
+
 // Update teacher section
 if (isset($_POST['update-teacher-btn'])) {
     $teacher_name = mysqli_real_escape_string($cn, $_POST['teacher_name']);
     $teacher_cnic = mysqli_real_escape_string($cn, $_POST['teacher_cnic']);
     $teacher_mobile = mysqli_real_escape_string($cn, $_POST['teacher_mobile']);
     $teacher_subject = mysqli_real_escape_string($cn, $_POST['teacher_subject']);
+    $teacher_school = mysqli_real_escape_string($cn, $_POST['teacher_school']);
     $teacher_dob = mysqli_real_escape_string($cn, $_POST['teacher_dob']);
     $teacher_joining_date = mysqli_real_escape_string($cn, $_POST['teacher_joining_date']);
 
@@ -38,7 +45,8 @@ if (isset($_POST['update-teacher-btn'])) {
                                teacher_mobile = '$teacher_mobile', 
                                teacher_dob = '$teacher_dob', 
                                teacher_joining_date = '$teacher_joining_date', 
-                               teacher_subject = '$teacher_subject'
+                               teacher_subject = '$teacher_subject' ,
+                               teacher_school_id = '$teacher_school'
                            WHERE teacher_id = '$teacher_id'";
 
     if (mysqli_query($cn, $update_teacher_qry)) {
@@ -143,13 +151,34 @@ if (isset($_POST['update-teacher-btn'])) {
                                                         </select>
                                                     </div>
                                                 </div>
+
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>School<span class="text-danger">*</span> :</label>
+                                                        <select class="form-control select2" id='school-select' required="" name="teacher_school">
+                                                            <option selected disabled value="">-- Choose --</option>
+                                                            <?php
+                                                            // Loop through groups and add them as options in the select
+                                                            while ($school = mysqli_fetch_assoc($select_schools_run)) {
+
+                                                                $select = ($school['school_id'] == $teacher_data['teacher_school_id']) ? 'selected' : '';
+                                                                echo "<option value='" . $school['school_id'] . "' $select>" . $school['school_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Select a school.
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- /col -->
+
                                             </div>
 
 
 
                                             <div class="form-group text-right">
-                                                <button type="submit" name="update-teacher-btn" class="btn btn-primary">Update Teacher</button>
-                                                <a href="add-teacher.php" class="btn btn-secondary">Cancel</a>
+                                                <button type="submit" name="update-teacher-btn" class="btn btn-primary">Update</button>
                                             </div>
                                         </form>
                                     </div>

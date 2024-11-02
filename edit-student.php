@@ -27,6 +27,12 @@ if (isset($_GET['id'])) {
 $groups_query = "SELECT * FROM groups";
 $groups_result = mysqli_query($cn, $groups_query);
 $groups = mysqli_fetch_all($groups_result, MYSQLI_ASSOC);
+
+
+// Fetch schools from the database
+$select_schools = "SELECT * FROM schools WHERE school_status = 1"; // Only fetch active groups
+$select_schools_run = mysqli_query($cn, $select_schools);
+
 ?>
 
 
@@ -48,6 +54,7 @@ if (isset($_POST['edit-student-btn'])) {
     $student_grade = $_POST['student_grade'];
     $student_section = $_POST['student_section'];
     $student_group = $_POST['student_group'];
+    $student_school = $_POST['student_school'];
     $student_group_category = $_POST['student_group_category'];
     $student_remarks = isset($_POST['student_remarks']) ? $_POST['student_remarks'] : null;
 
@@ -65,6 +72,7 @@ if (isset($_POST['edit-student-btn'])) {
                   student_section = ?, 
                   student_group = ?, 
                   student_group_category = ?, 
+                  student_school = ?, 
                   student_remarks = ?
               WHERE student_id = ?";
 
@@ -74,7 +82,7 @@ if (isset($_POST['edit-student-btn'])) {
     // Bind the parameters
     mysqli_stmt_bind_param(
         $stmt,
-        'ssssssssssssi',
+        'sssssssssssssi',
         $student_cnic,
         $student_mobile,
         $student_name,
@@ -86,6 +94,7 @@ if (isset($_POST['edit-student-btn'])) {
         $student_section,
         $student_group,
         $student_group_category,
+        $student_school,
         $student_remarks,
         $student_id
     );
@@ -312,7 +321,31 @@ if (isset($_POST['edit-student-btn'])) {
                                                     </div>
                                                 </div><!-- col -->
 
+
                                                 <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label>School<span class="text-danger">*</span> :</label>
+                                                        <select class="form-control select2" id='school-select' required="" name="student_school">
+                                                            <option selected disabled value="">-- Choose --</option>
+                                                            <?php
+                                                            // Loop through groups and add them as options in the select
+                                                            while ($school = mysqli_fetch_assoc($select_schools_run)) {
+
+
+                                                                $selected = ($school['school_id'] == $student['student_school']) ? 'selected' : '';
+
+                                                                echo "<option value='" . $school['school_id'] . "'  $selected>" . $school['school_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Select a school.
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- /col -->
+
+
+                                                <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Remarks: <small>(Optional)</small></label>
                                                         <input type="text" placeholder="Enter here..." class="form-control" name="student_remarks" value="<?= $student['student_remarks']; ?>">

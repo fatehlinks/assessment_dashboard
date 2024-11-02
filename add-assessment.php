@@ -16,6 +16,11 @@ include('config.php'); // Ensure you have the connection file included
 $query = "SELECT subject_id, subject_name FROM subjects WHERE subject_status = 1";
 $subjectsResult = mysqli_query($cn, $query);
 
+
+// Fetch schools from the database
+$select_schools = "SELECT * FROM schools WHERE school_status = 1"; // Only fetch active groups
+$select_schools_run = mysqli_query($cn, $select_schools);
+
 ?>
 
 <!DOCTYPE html>
@@ -243,6 +248,27 @@ $subjectsResult = mysqli_query($cn, $query);
                                                     </div>
                                                 </div> <!-- /col -->
 
+
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>School<span class="text-danger">*</span> :</label>
+                                                        <select class="form-control select2" id='school-select' required="" name="assessment_school">
+                                                            <option selected disabled value="">-- Choose --</option>
+                                                            <?php
+                                                            // Loop through groups and add them as options in the select
+                                                            while ($school = mysqli_fetch_assoc($select_schools_run)) {
+
+                                                                echo "<option value='" . $school['school_id'] . "' >" . $school['school_name'] . "</option>";
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Select a school.
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- /col -->
+
                                             </div> <!-- /row -->
                                         </div>
 
@@ -280,7 +306,7 @@ $subjectsResult = mysqli_query($cn, $query);
         $(document).ready(function() {
             swal({
                 title: "Congrats",
-                text: "Operation primaryfully completed.",
+                text: "Operation Successfully completed.",
                 icon: "primary",
                 button: "OK"
             });
