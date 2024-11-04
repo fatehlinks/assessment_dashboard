@@ -13,6 +13,7 @@ $filter_assmt_group_category = $_POST['filter_assmt_group_category'] ?? null;
 $query = "SELECT s.student_id, s.student_name, m.marking_obtained_marks, m.marking_total_marks FROM students s
           LEFT JOIN marking m ON s.student_id = m.marking_student_id AND m.marking_assessment_id = '$filter_assessment_id'
           LEFT JOIN assessments a ON a.assessment_id = '$filter_assessment_id'
+          JOIN admin ON assessments.assessment_school_id = admin.admin_role
           WHERE a.assessment_id = '$filter_assessment_id' AND a.assessment_status = 2";
 
 // Apply dynamic filters

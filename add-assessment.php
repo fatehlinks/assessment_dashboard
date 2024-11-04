@@ -18,7 +18,7 @@ $subjectsResult = mysqli_query($cn, $query);
 
 
 // Fetch schools from the database
-$select_schools = "SELECT * FROM schools WHERE school_status = 1"; // Only fetch active groups
+$select_schools = "SELECT * FROM schools JOIN admin ON schools.school_id = admin.admin_role WHERE school_status = 1"; // Only fetch active groups
 $select_schools_run = mysqli_query($cn, $select_schools);
 
 ?>

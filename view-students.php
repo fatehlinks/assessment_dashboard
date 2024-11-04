@@ -42,6 +42,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                         <th>CNIC</th>
                                                         <th>Mobile</th>
                                                         <th>Group</th>
+                                                        <th>School</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -49,9 +50,12 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                 <tbody>
                                                     <?php
                                                     // Fetch student data from the database
-                                                    $select_student_data = "SELECT students.*, groups.group_name 
+                                                    $select_student_data = "SELECT students.*, groups.group_name , school_name 
                                                                             FROM students 
-                                                                            JOIN groups ON students.student_group = groups.group_id WHERE student_status != -1";
+                                                                            JOIN groups ON students.student_group = groups.group_id  
+                                                                            JOIN schools ON schools.school_id = students.student_school
+                                                                            JOIN admin ON schools.school_id = admin.admin_role
+                                                                             WHERE student_status != -1";
                                                     $select_student_data_run = mysqli_query($cn, $select_student_data);
 
                                                     while ($row = mysqli_fetch_assoc($select_student_data_run)) {
@@ -61,6 +65,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                         $student_mobile = $row['student_mobile'];
                                                         $student_group = $row['group_name'];
                                                         $student_status = $row['student_status'];
+                                                        $student_school = $row['school_name'];
 
                                                         // Set the status display
                                                         if ($student_status == 1) {
@@ -74,6 +79,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                             <td><?= $student_cnic; ?></td>
                                                             <td><?= $student_mobile; ?></td>
                                                             <td><?= $student_group; ?></td>
+                                                            <td><?= $student_school; ?></td>
                                                             <td><?= $student_status_display; ?></td>
                                                             <td>
                                                                 <div class="dropdown form-control-sm">

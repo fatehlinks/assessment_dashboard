@@ -84,6 +84,7 @@ if (!empty($_SESSION['primary_sweetalert_displayed'])) {
                                                         category c ON a.assessment_group_category = c.category_id
                                                         LEFT JOIN
                                                         marking m ON a.assessment_id = m.marking_assessment_id
+                                                        JOIN admin ON a.assessment_school_id = admin.admin_role
                                                         WHERE 
                                                         a.assessment_status != -1;
                                                     ";

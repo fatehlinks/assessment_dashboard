@@ -145,6 +145,7 @@ $assessments = mysqli_fetch_all($assessments_result, MYSQLI_ASSOC);
             m.marking_student_id
         FROM students s
         LEFT JOIN marking m ON s.student_id = m.marking_student_id 
+        JOIN admin ON m.marking_assessment_id = admin.admin_role
             AND m.marking_assessment_id = '$filter_assessment_id'
         WHERE m.marking_status = 1"; // Placeholder to append conditions dynamically
 
